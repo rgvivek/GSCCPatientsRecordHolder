@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<div class="alert alert-success" *ngIf="status === 'success' && !signUpForm.dirty">
+		    <strong>User created successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+  		<form [formGroup]="signUpForm" (ngSubmit)="signUp(signUpForm.value)" novalidate="novalidate" [ngClass]="{submitted:signUpButtonClicked}">
+	  		<gncc-input [labelText] = "'First Name'" [inputControl] = "signUpForm.controls['firstname']"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Last Name'" [inputControl] = "signUpForm.controls['lastname']"></gncc-input>
+
+	  		<gncc-input [labelText] = "'User Name'" [inputControl] = "signUpForm.controls['username']"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Password'" [inputControl] = "signUpForm.controls['password']" [inputType]="'password'"></gncc-input>
+			
+			<gncc-input [labelText] = "'Is Admin?'" [inputControl] = "signUpForm.controls['isadmin']" [inputType]="'checkbox'"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Create User</button>
+		</form>
+  	</div>
+</div>

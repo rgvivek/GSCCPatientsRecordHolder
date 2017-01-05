@@ -1,0 +1,41 @@
+<!doctype>
+<html>
+<head>
+    <base href="/">
+    <title>Gunam Siddha Cure Center</title>
+    <link rel="shortcut icon" href="src/img/title.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/app.css">
+    <link href="node_modules/ag-grid/dist/styles/ag-grid.css" rel="stylesheet" />
+    <link href="node_modules/ag-grid/dist/styles/theme-fresh.css" rel="stylesheet" />
+    <link href="node_modules/ag-grid/dist/styles/theme-dark.css" rel="stylesheet" />
+    <link href="node_modules/ag-grid/dist/styles/theme-bootstrap.css" rel="stylesheet" />
+    <link href="node_modules/ag-grid/dist/styles/theme-material.css" rel="stylesheet" />
+</head>
+<body>
+    <nsf-app>Loading...</nsf-app>
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/boot')
+                .then(null, console.error.bind(console));
+    </script>
+</body>
+</html>

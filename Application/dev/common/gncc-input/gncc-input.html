@@ -1,0 +1,26 @@
+<div class="form-group row" [ngSwitch]="inputType">
+  	<label class="col-xs-12 col-form-label" *ngSwitchDefault>
+    	<div class="col-xs-2 no-horizontal-padding">
+        	{{labelText}}
+    	</div>
+    	<div class="col-xs-10 no-horizontal-padding">
+        	<input class="form-control" type="{{inputType}}" [formControl]="inputControl">
+        	<div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
+        		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        		<span [hidden]="!inputControl.errors?.required">
+	              	Please enter {{labelText}}.
+	            </span>
+	            <span [hidden]="!inputControl.errors?.minlength">
+	              	{{labelText}} is very short.
+	            </span>
+	            <span [hidden]="!inputControl.errors?.maxlength">
+              		{{labelText}} is very long.
+            	</span>
+        	</div>
+    	</div>
+  	</label>
+  	<label class="col-xs-2 checkbox-label" *ngSwitchCase="'checkbox'">
+  		<input class="form-control" type="checkbox" [formControl]="inputControl">
+  		{{labelText}}
+  	</label>
+</div>

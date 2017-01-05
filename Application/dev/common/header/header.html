@@ -1,0 +1,26 @@
+<header>
+	<div class = "col-xs-2 no-horizontal-padding">
+	 	<div class = "col-xs-10 no-horizontal-padding">
+        	<img src = "src/img/icon-home.png" class = "img-responsive home-button" (click)="goHome()">
+        </div>
+    </div>
+    <div class = "col-xs-2 col-xs-offset-4 no-horizontal-padding">
+        <div class = "col-xs-7 col-xs-offset-5 no-horizontal-padding">
+            <img src = "src/img/title.png" class = "img-responsive">
+        </div>
+    </div>
+    <div class = "col-xs-4 no-horizontal-padding">
+        <div class="loggedin-user" *ngIf="user != null">
+            <div class = "col-xs-2 col-xs-offset-9 no-horizontal-padding" data-toggle="tooltip" title="{{user.fullName}}" data-placement="bottom">
+                <span class="col-xs-8 col-xs-offset-4 no-horizontal-padding">{{user.displayName}}</span>
+            </div>
+            <div class = "col-xs-1 no-horizontal-padding">
+                <img class = "img-responsive logout-user" (click)="logout()">
+            </div>
+        </div>
+        <div class = "col-xs-12 title-type-1 no-horizontal-padding">
+            <p>{{header.subTitle}}</p>
+            <p>{{header.title}}</p>
+        </div>
+    </div>
+</header>

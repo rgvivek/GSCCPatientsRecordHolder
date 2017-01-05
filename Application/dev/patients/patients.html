@@ -1,0 +1,5 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+  	<ag-grid-ng2 #gapp class="ag-dark col-xs-12 ag-green" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="patients" enableSorting="true" enableColResize="true" enableFilter="true" (rowClicked)='gotoDetail($event)'></ag-grid-ng2>
+  </div>
+</div>
