@@ -1,0 +1,29 @@
+<div class="alert alert-success" *ngIf="status === 'success' && !generalInfoForm.dirty">
+    <strong>Details saved successfully!</strong>
+</div>
+<div class="alert alert-danger" *ngIf="status === 'error'">
+    <strong>{{errorMessage}}</strong>
+</div>
+<form [formGroup]="generalInfoForm" (ngSubmit)="savePatient(generalInfoForm.value)" novalidate="novalidate" [ngClass]="{submitted:generalInfoButtonClicked}">
+	<gncc-input [labelText] = "'Patient Id'" [inputControl] = "generalInfoForm.controls['id']" [disabled]="'true'"></gncc-input>
+
+	<gncc-input [labelText] = "'First Name'" [inputControl] = "generalInfoForm.controls['firstname']" [placeholderText] = "'First name'" [disabled]="'true'"></gncc-input>
+
+	<gncc-input [labelText] = "'Last Name'" [inputControl] = "generalInfoForm.controls['lastname']" [placeholderText] = "'Last name'" [disabled]="'true'"></gncc-input>
+
+	<gncc-input [labelText] = "'Father/Guardians Name'" [inputControl] = "generalInfoForm.controls['fathersname']" [placeholderText] = "'Guradian name'" [disabled]="'true'"></gncc-input>
+
+	<gncc-input [labelText] = "'Sex'" [inputControl] = "generalInfoForm.controls['sex']" [inputType]="'select'" [optionList]="sexList" [placeholderText] = "'Sex'" [disabled]="'true'"></gncc-input>
+
+	<gncc-input [labelText] = "'Date of Birth'" [inputControl] = "generalInfoForm.controls['dateofbirth']" [inputType]="'date'" [maxDate]="todaysDate" [disabled]="'true'"></gncc-input>
+
+	<gncc-input [labelText] = "'Occupation'" [inputControl] = "generalInfoForm.controls['occupation']" [placeholderText] = "'Occupation'"></gncc-input>
+
+	<gncc-input [labelText] = "'Monthly Income'" [inputControl] = "generalInfoForm.controls['monthlyincome']" [placeholderText] = "'Monthly Income'" [inputType]="'number'"></gncc-input>
+
+	<gncc-input [labelText] = "'E-Mail Id'" [inputControl] = "generalInfoForm.controls['emailid']" [placeholderText] = "'E-Mail Id'" [inputType]="'email'"></gncc-input>
+
+	<gncc-input [labelText] = "'Mobile'" [inputControl] = "generalInfoForm.controls['mobilenumber']" [placeholderText] = "'Mobile'" [inputType]="'number'"></gncc-input>
+
+	<button class="btn btn-primary btn-block" type="submit">Save</button>
+</form>

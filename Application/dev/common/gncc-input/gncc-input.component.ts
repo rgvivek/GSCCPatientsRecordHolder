@@ -8,4 +8,9 @@ export class GnccInputComponent {
 	@Input() inputType: string = 'text';
 	@Input() labelText: string = '';
 	@Input() inputControl: AbstractControl;
+	@Input() placeholderText: string = '';
+	@Input() optionList:List = [];
+	@Input() minDate:string = '';
+	@Input() maxDate:string = '';
+	@Input() disabled:string = '';
 }

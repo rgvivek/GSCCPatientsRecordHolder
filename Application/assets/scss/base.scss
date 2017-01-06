@@ -5,6 +5,8 @@ $green-4 : #00611C;
 $green-5 : #488214;
 $green-6 : #215E21;
 $green-7 : #004F00;
+$green-8 : #229B04;
+$green-9 : #C3F9b6;
 $red-1 : #A94442;
 $red-2 : #F2DEDE;
 $white : #FFFFFF;
@@ -75,6 +77,46 @@ footer{
 .no-horizontal-padding{
 	padding-left : 0;
 	padding-right : 0;
+}
+
+.full-width-tabs > ul.nav.nav-tabs {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.full-width-tabs > ul.nav.nav-tabs > li {
+    float: none;
+    display: table-cell;
+    background: $green-2;
+    cursor:pointer;
+}
+.full-width-tabs > ul.nav.nav-tabs > li > a {
+    text-align: center;
+}
+.take-all-space-you-can{
+    width:100%;
+}
+.nav-tabs>li>a{
+	color:$white;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+	background:$green-8;
+	border-color: $green-8;
+	color:$green-1;
+}
+
+.nav-tabs>li>a:hover , .nav-tabs{
+    border-color: $green-8;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: $green-8;
+    border-color: $green-8;
+}
+
+.pane{
+	background-color: $green-9;
+	color:$green-1;
 }
 
 .loggedin-user{

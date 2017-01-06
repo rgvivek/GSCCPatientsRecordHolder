@@ -1,20 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PatientService } from 'app/patient/patient.service';
-import { User } from 'app/user/user';
 
 @Component({
-    selector: 'nsf-sign-up',
-    templateUrl:"app/sign-up/sign-up.html"
+    selector: 'create-user',
+    templateUrl:"app/create-user/create-user.html"
 })
 
-export class SignUpComponent{
+export class CreateUserComponent{
 	private signUpForm:ControlGroup;
 	private signUpButtonClicked:boolean = false;
 	private status:string;
 
-	constructor(private patientService: PatientService, private router: Router, private fb: FormBuilder) {
+	constructor(private patientService: PatientService, private fb: FormBuilder) {
 		this.signUpButtonClicked = false;
 		this.signUpForm = fb.group({
 			'firstname' : [null, Validators.required],

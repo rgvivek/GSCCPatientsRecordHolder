@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent }  from './login/login.component';
-import { SignUpComponent }  from './sign-up/sign-up.component';
+import { CreateUserComponent }  from './create-user/create-user.component';
 import { MainComponent }  from './main/main.component';
 import { PatientsComponent } from './patients/patients.component';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
@@ -16,8 +16,8 @@ const appRoutes: Routes = [
       path: 'login',
       component: LoginComponent
     },{
-      path: 'signup',
-      component: SignUpComponent
+      path: 'createUser',
+      component: CreateUserComponent
     },{
       path: 'main',
       component: MainComponent
@@ -25,15 +25,15 @@ const appRoutes: Routes = [
       path: 'patients',
       component: PatientsComponent
     },{
+      path: 'patients/0',
+      component: AddPatientComponent
+    },{
       path: 'patients/:id',
       component: PatientDetailComponent
     },{
     	path: 'detail/:id',
     	component: PatientDetailComponent
-  	},{
-      path: 'patients/new',
-      component: AddPatientComponent
-    }
+  	}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

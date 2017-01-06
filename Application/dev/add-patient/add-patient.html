@@ -1,67 +1,23 @@
 <div class="panel panel-default">
-  <div class="panel-body">
-  	<div class="form-group row">
-	  <label for="firstname" class="col-xs-2 col-form-label">Name</label>
-	  <div class="col-xs-3">
-	    <input class="form-control" type="text" [(ngModel)]="patient.firstname" id="firstname">
-	  </div>
-	  <div class="col-xs-2 col-xs-offset-1">
-	    <input class="form-control" type="text" [(ngModel)]="patient.middlename" id="middlename">
-	  </div>
-	  <div class="col-xs-3 col-xs-offset-1">
-	    <input class="form-control" type="text" [(ngModel)]="patient.lastname" id="lastname">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="fathersname" class="col-xs-2 col-form-label">Father/Guardian's Name</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="text" [(ngModel)]="patient.fathersname" id="fathersname">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="sex" class="col-xs-2 col-form-label">Sex</label>
-	  <div class="col-xs-10">
-	  	<select class="form-control" [(ngModel)]="patient.sex" id="sex">
-		  <option *ngFor="let c of sexList" [ngValue]="c">{{c}}</option>
-		</select>
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="dateofbirth" class="col-xs-2 col-form-label">Date Of Birth</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="date" [(ngModel)]="patient.dateofbirth" id="dateofbirth">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="occupation" class="col-xs-2 col-form-label">Occupation</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="text" [(ngModel)]="patient.occupation" id="occupation">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="monthlyincome" class="col-xs-2 col-form-label">Monthly Income</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="number" [(ngModel)]="patient.monthlyincome" id="monthlyincome">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="adddress" class="col-xs-2 col-form-label">Adddress</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="text" [(ngModel)]="patient.address" id="adddress">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="emailid" class="col-xs-2 col-form-label">E-Mail Address</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="email" [(ngModel)]="patient.emailid" id="emailid">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="mobilenumber" class="col-xs-2 col-form-label">Mobile Number</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="tel" [(ngModel)]="patient.mobilenumber" id="mobilenumber">
-	  </div>
-	</div>
-  </div>
-  <button class="btn btn-primary btn-block" (click)="addPatient()">Add Patient</button>
+  	<div class="panel-body">
+  		<div class="alert alert-success" *ngIf="status === 'success' && !addPatientForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+  		<form [formGroup]="addPatientForm" (ngSubmit)="addPatient(addPatientForm.value)" novalidate="novalidate" [ngClass]="{submitted:addPatientButtonClicked}">
+	  		<gncc-input [labelText] = "'First Name'" [inputControl] = "addPatientForm.controls['firstname']" [placeholderText] = "'First name'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Last Name'" [inputControl] = "addPatientForm.controls['lastname']" [placeholderText] = "'Last name'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Father/Guardians Name'" [inputControl] = "addPatientForm.controls['fathersname']" [placeholderText] = "'Guradian name'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Sex'" [inputControl] = "addPatientForm.controls['sex']" [inputType]="'select'" [optionList]="sexList" [placeholderText] = "'Sex'"></gncc-input>
+			
+			<gncc-input [labelText] = "'Date of Birth'" [inputControl] = "addPatientForm.controls['dateofbirth']" [inputType]="'date'" [maxDate]="todaysDate"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Add Patient</button>
+		</form>
+  	</div>
 </div>

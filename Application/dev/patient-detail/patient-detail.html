@@ -1,67 +1,15 @@
+
 <div class="panel panel-default">
-  <div class="panel-body">
-  	<div class="form-group row">
-	  <label for="firstname" class="col-xs-2 col-form-label">Name</label>
-	  <div class="col-xs-3">
-	    <input class="form-control" type="text" [(ngModel)]="patient.firstname" id="firstname">
-	  </div>
-	  <div class="col-xs-2 col-xs-offset-1">
-	    <input class="form-control" type="text" [(ngModel)]="patient.middlename" id="middlename">
-	  </div>
-	  <div class="col-xs-3 col-xs-offset-1">
-	    <input class="form-control" type="text" [(ngModel)]="patient.lastname" id="lastname">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="fathersname" class="col-xs-2 col-form-label">Father/Guardian's Name</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="text" [(ngModel)]="patient.fathersname" id="fathersname">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="sex" class="col-xs-2 col-form-label">Sex</label>
-	  <div class="col-xs-10">
-	  	<select class="form-control" [(ngModel)]="patient.sex" id="sex">
-		  <option *ngFor="let c of sexList" [ngValue]="c">{{c}}</option>
-		</select>
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="dateofbirth" class="col-xs-2 col-form-label">Date Of Birth</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="date" [(ngModel)]="patient.dateofbirth" id="dateofbirth">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="occupation" class="col-xs-2 col-form-label">Occupation</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="text" [(ngModel)]="patient.occupation" id="occupation">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="monthlyincome" class="col-xs-2 col-form-label">Monthly Income</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="number" [(ngModel)]="patient.monthlyincome" id="monthlyincome">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="adddress" class="col-xs-2 col-form-label">Adddress</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="text" [(ngModel)]="patient.address" id="adddress">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="emailid" class="col-xs-2 col-form-label">E-Mail Address</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="email" [(ngModel)]="patient.emailid" id="emailid">
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="mobilenumber" class="col-xs-2 col-form-label">Mobile Number</label>
-	  <div class="col-xs-10">
-	    <input class="form-control" type="tel" [(ngModel)]="patient.mobilenumber" id="mobilenumber">
-	  </div>
-	</div>
-  </div>
-  <button class="btn btn-primary btn-block" (click)="savePatient()">Save Patient</button>
+  	<div class="panel-body">
+  		<tabs class="full-width-tabs">
+			<tab tabTitle="Personal Details">
+				<pd-general-information [patient]="patient"></pd-general-information>
+			</tab>
+			<tab tabTitle="Patient History">Patient 2 Content</tab>
+			<tab tabTitle="Cinical Investigations">Investigations 2 Content</tab>
+			<tab tabTitle="Special Investigations">Tab 2 Investigations</tab>
+			<tab tabTitle="Diagnosis">Diagnosis 2 Content</tab>
+			<tab tabTitle="Mode Of Treatment">Tab 2 Diagnosis</tab>
+		</tabs>
+  	</div>
 </div>

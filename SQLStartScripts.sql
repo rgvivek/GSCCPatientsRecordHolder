@@ -35,4 +35,8 @@ CREATE TABLE `users` (
 
 
 
+ALTER TABLE `gscc`.`patients` 
+CHANGE COLUMN `dateofbirth` `dateofbirth` VARCHAR(15) NULL DEFAULT NULL ;
+
+
 INSERT INTO gscc.users (firstname,lastname,username,password,isAdmin) values ('GSCC','Admin','admin', '$2a$08$Vt3fKqJHuo0QfIXrNvKV6e/uyFC1CBOf4Qmefvn7crFWKaR9D0vNK', true);

@@ -10,7 +10,7 @@ import { PatientService } from 'app/patient/patient.service';
 
 export class PatientDetailComponent implements OnInit{
 	private sexList:Array<string> = ['Male', 'Female'];
-	private patient:Patient = new Patient();
+	private patient:Patient;
 
 	constructor(private patientService: PatientService, private route: ActivatedRoute, private router: Router) { };
 	ngOnInit(): void {

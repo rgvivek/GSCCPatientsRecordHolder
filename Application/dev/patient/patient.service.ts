@@ -13,7 +13,9 @@ import { Router } from '@angular/router';
 
 export class PatientService {
 	// Resolve HTTP using the constructor
-     constructor (private http: Http, private cookieService: CookieService, public router: Router) {}
+     constructor (private http: Http, private cookieService: CookieService, public router: Router) {
+     	this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+     }
      // private instance variable to hold base url
      private patientsUrl = 'http://localhost:8000/patients'; 
      private header = {headers:{}};

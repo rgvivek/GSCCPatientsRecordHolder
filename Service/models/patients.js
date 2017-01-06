@@ -21,12 +21,12 @@ function Patients() {
   this.create = function(patient, res) {
     connection.acquire(function(err, con) {
       con.query('insert into patients set ?', patient, function(err, result) {
-        console.log('jon' + JSON.stringify(result));
         con.release();
         if (err) {
-          res.send({status: 1, message: 'TODO creation failed'});
+          console.log("Error :" + JSON.stringify(err))
+          res.send({status: 1, message: 'Patient creation failed'});
         } else {
-          res.send({status: 0, message: 'TODO created successfully'});
+          res.send({status: 2, message: 'Patient created successfully', patientId : result.insertId});
         }
       });
     });
@@ -37,9 +37,9 @@ function Patients() {
       con.query('update patients set ? where id = ?', [patient, patient.id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'TODO update failed'});
+          res.send({status: 1, message: 'Patient update failed'});
         } else {
-          res.send({status: 0, message: 'TODO updated successfully'});
+          res.send({status: 2, message: 'Patient updated successfully'});
         }
       });
     });
@@ -52,7 +52,7 @@ function Patients() {
         if (err) {
           res.send({status: 1, message: 'Failed to delete'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 2, message: 'Deleted successfully'});
         }
       });
     });

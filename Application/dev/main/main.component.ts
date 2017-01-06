@@ -24,8 +24,8 @@ export class MainComponent implements OnInit{
 	  let link = ['/patients/0'];
 	  this.router.navigate(link);
 	}
-	addUser() : void {
-	  let link = ['/signup'];
+	createUser() : void {
+	  let link = ['/createUser'];
 	  this.router.navigate(link);
 	}
 	ngOnInit(): void {

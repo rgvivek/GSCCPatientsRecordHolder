@@ -11,11 +11,14 @@ import { PatientService } from './patient/patient.service';
 import { HeaderComponent }  from './common/header/header.component';
 import { FooterComponent }  from './common/footer/footer.component';
 import { GnccInputComponent }  from './common/gncc-input/gncc-input.component';
+import { Tab }  from './common/tabs/tab';
+import { Tabs }  from './common/tabs/tabs';
 import { LoginComponent }  from './login/login.component';
-import { SignUpComponent }  from './sign-up/sign-up.component';
+import { CreateUserComponent }  from './create-user/create-user.component';
 import { MainComponent }  from './main/main.component';
 import { PatientsComponent }  from './patients/patients.component';
 import { PatientDetailComponent }  from './patient-detail/patient-detail.component';
+import { GeneralInformationComponent }  from './patient-detail/general-information/general-information.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
 import { UserService } from './user/user.service';
 
@@ -34,12 +37,15 @@ import { UserService } from './user/user.service';
   	HeaderComponent,
   	FooterComponent,
     GnccInputComponent,
+    Tab,
+    Tabs,
     LoginComponent,
-    SignUpComponent,
+    CreateUserComponent,
     MainComponent,
   	PatientsComponent,
   	PatientDetailComponent,
-    AddPatientComponent
+    AddPatientComponent,
+    GeneralInformationComponent
   ],
   providers: [PatientService, UserService, CookieService ],
   bootstrap: [ AppComponent ]
