@@ -1,10 +1,11 @@
-import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
+import { Component, ContentChildren, QueryList, AfterContentInit, Attribute } from '@angular/core';
 import { Tab } from './tab';
 
 @Component({
   selector: 'tabs',
+  properties: {"isVertical":"isVertical"},
   template:`
-    <ul class="nav nav-tabs">
+    <ul class="nav {{tabsStyle}}">
       <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active" class="take-all-space-you-can">
         <a>{{tab.title}}</a>
       </li>
@@ -16,6 +17,14 @@ export class Tabs implements AfterContentInit {
   
   @ContentChildren(Tab) tabs: QueryList<Tab>;
   
+  tabsStyle:string = 'nav-tabs';
+ 
+  constructor(@Attribute('isVertical') isVertical:boolean) { 
+      if(isVertical){
+        this.tabsStyle = 'nav-pills nav-stacked col-xs-2';
+      }
+  };
+
   // contentChildren are set
   ngAfterContentInit() {
     // get all active tabs

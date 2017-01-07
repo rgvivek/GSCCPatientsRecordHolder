@@ -55,21 +55,15 @@ export class GeneralInformationComponent implements OnInit{
 	savePatient(formData : any): void {
 		this.generalInfoButtonClicked = true;
 		this.status = null;
-		if(this.generalInfoForm.valid){
+		if(this.generalInfoForm.valid && this.generalInfoForm.dirty){
 			this.patientService.savePatient(formData).subscribe(
 				response => {
 			  		var status = response.status;
 			  		this.generalInfoButtonClicked = false;
 			  		switch(status){
 			  			case 2:{
-			  				let patientId = response.patientId;
-			  				if(patientId){
-			  					let link = ['/patients/'+patientId];
-								this.router.navigate(link);
-			  				}else{
-			  					this.status = 'error';
-			  					this.errorMessage = "Problem saving patient details. Please try again later.";
-			  				}
+			  				this.status = 'success';
+			  				this.generalInfoForm.markAsPristine();
 			  				break;
 			  			}
 			  			case 1:{
@@ -79,7 +73,10 @@ export class GeneralInformationComponent implements OnInit{
 			  			}
 			  		}
 			  	},
-			  	error =>  this.errorMessage = <any>error
+			  	error =>  {
+			  		this.status = 'error';
+			  		this.errorMessage = <any>error;
+			  	}
 			);
 		}
 	}

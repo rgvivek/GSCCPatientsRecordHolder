@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
     }
   `],
   template: `
-    <div [hidden]="!active" class="pane">
+    <div [hidden]="!active" class="pane col-xs-12" [class.vertical-nav]="isVertical">
       <ng-content></ng-content>
     </div>
   `
@@ -16,4 +16,5 @@ import { Component, Input } from '@angular/core';
 export class Tab {
   @Input('tabTitle') title: string;
   @Input() active = false;
+  @Input('isVertical') isVertical:boolean;
 }

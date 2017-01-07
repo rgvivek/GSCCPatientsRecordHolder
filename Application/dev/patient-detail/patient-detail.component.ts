@@ -19,10 +19,19 @@ export class PatientDetailComponent implements OnInit{
 	    this.patient = new Patient();
 	    if(id != 0){
 	    	this.patientService.getPatient(id).subscribe(
-                patient => this.patient = patient,
+                patient => {
+                	this.patient = patient;
+                	this.displayName = patient.firstname + " " + patient.lastname[0] + " " + patient.sex[0]+"/"+this.calculateAge(new Date(patient.dateofbirth));
+                },
                 error =>  this.errorMessage = <any>error);
         }
 	  });
+	}
+
+	calculateAge(birthday:Date):string {
+	    var ageDifMs = Date.now() - birthday.getTime();
+	    var ageDate = new Date(ageDifMs); 
+	    return Math.abs(ageDate.getUTCFullYear() - 1970);
 	}
 
 	savePatient(): void {

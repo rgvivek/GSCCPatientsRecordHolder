@@ -19,6 +19,7 @@ import { MainComponent }  from './main/main.component';
 import { PatientsComponent }  from './patients/patients.component';
 import { PatientDetailComponent }  from './patient-detail/patient-detail.component';
 import { GeneralInformationComponent }  from './patient-detail/general-information/general-information.component';
+import { HistoryInformationComponent }  from './patient-detail/history-information/history-information.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
 import { UserService } from './user/user.service';
 
@@ -45,7 +46,8 @@ import { UserService } from './user/user.service';
   	PatientsComponent,
   	PatientDetailComponent,
     AddPatientComponent,
-    GeneralInformationComponent
+    GeneralInformationComponent,
+    HistoryInformationComponent
   ],
   providers: [PatientService, UserService, CookieService ],
   bootstrap: [ AppComponent ]

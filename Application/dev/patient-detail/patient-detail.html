@@ -1,11 +1,13 @@
-
 <div class="panel panel-default">
   	<div class="panel-body">
+  		<h1 class="heading-1">{{displayName}}</h1>
   		<tabs class="full-width-tabs">
 			<tab tabTitle="Personal Details">
 				<pd-general-information [patient]="patient"></pd-general-information>
 			</tab>
-			<tab tabTitle="Patient History">Patient 2 Content</tab>
+			<tab tabTitle="Patient History">
+				<pd-history-information [patient]="patient"></pd-history-information>
+			</tab>
 			<tab tabTitle="Cinical Investigations">Investigations 2 Content</tab>
 			<tab tabTitle="Special Investigations">Tab 2 Investigations</tab>
 			<tab tabTitle="Diagnosis">Diagnosis 2 Content</tab>

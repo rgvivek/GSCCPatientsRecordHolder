@@ -1,8 +1,11 @@
-<div class="alert alert-success" *ngIf="status === 'success' && !generalInfoForm.dirty">
+<div class="alert alert-success" *ngIf="status === 'success' && generalInfoForm.pristine">
     <strong>Details saved successfully!</strong>
 </div>
 <div class="alert alert-danger" *ngIf="status === 'error'">
     <strong>{{errorMessage}}</strong>
+</div>
+<div class="alert alert-warning" *ngIf="generalInfoButtonClicked && generalInfoForm.pristine">
+    <strong>No changes to save!</strong>
 </div>
 <form [formGroup]="generalInfoForm" (ngSubmit)="savePatient(generalInfoForm.value)" novalidate="novalidate" [ngClass]="{submitted:generalInfoButtonClicked}">
 	<gncc-input [labelText] = "'Patient Id'" [inputControl] = "generalInfoForm.controls['id']" [disabled]="'true'"></gncc-input>

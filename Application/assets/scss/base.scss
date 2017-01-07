@@ -60,6 +60,12 @@ header{
 	}
 }
 
+.heading-1{
+	font-size : 1.9vw;
+	text-align:center;
+	margin : 5px;
+}
+
 .panel{
 	@mixin baseContainer;
 	background : $green-1;
@@ -114,9 +120,43 @@ footer{
     border-color: $green-8;
 }
 
-.pane{
-	background-color: $green-9;
+.nav-pills>li>a{
 	color:$green-1;
+	border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	background:$green-1;
+	border-color: $green-1;
+	color:$white;
+}
+
+.nav-pills>li>a:hover{
+    border-color: $green-1;
+    color:$white;
+}
+
+.nav-pills{
+	border-color: $green-1;
+	padding: 0;
+	margin-top: 5px;
+}
+
+.nav.nav-pills>li>a:focus, .nav.nav-pills>li>a:hover {
+    background-color: $green-1;
+    border-color: $green-1;
+}
+
+.pane{
+	background-color: $green-8;
+	color:$green-1;
+	&.vertical-nav{
+		width: 83.33333333%;
+		background-color: $green-1;
+		color: $white;
+		min-height: 260px;
+		border-radius:5px;
+	}
 }
 
 .loggedin-user{
