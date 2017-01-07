@@ -1,4 +1,4 @@
-CREATE DATABASE `gscc` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE `gscc`;
 
 USE `gscc`;
 
@@ -10,7 +10,7 @@ CREATE TABLE `patients` (
   `fathersname` varchar(100) DEFAULT NULL,
   `mothersname` varchar(100) DEFAULT NULL,
   `sex` varchar(10) DEFAULT NULL,
-  `dateofbirth` date DEFAULT NULL,
+  `dateofbirth` varchar(15) DEFAULT NULL,
   `occupation` varchar(100) DEFAULT NULL,
   `monthlyincome` varchar(100) DEFAULT NULL,
   `address` varchar(1000) DEFAULT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `patients` (
   `mobilenumber` varchar(100) DEFAULT NULL,
   `modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `users` (
@@ -33,10 +33,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
-
-
-ALTER TABLE `gscc`.`patients` 
-CHANGE COLUMN `dateofbirth` `dateofbirth` VARCHAR(15) NULL DEFAULT NULL ;
 
 
 INSERT INTO gscc.users (firstname,lastname,username,password,isAdmin) values ('GSCC','Admin','admin', '$2a$08$Vt3fKqJHuo0QfIXrNvKV6e/uyFC1CBOf4Qmefvn7crFWKaR9D0vNK', true);
