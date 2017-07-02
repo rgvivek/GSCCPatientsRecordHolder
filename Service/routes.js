@@ -104,6 +104,10 @@ module.exports = {
       }
     });
 
+    app.post('/femalePatientHistory/', isLoggedIn, function(req, res, next) {
+      patientHistory.updateFemale(req.body, res);
+    });
+
     function isLoggedIn(req, res, next) {
       var token = req.headers['x-access-token'];
       console.log("new user is " + JSON.stringify(req.body));

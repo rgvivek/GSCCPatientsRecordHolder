@@ -11,6 +11,7 @@ import { PatientService } from 'app/patient/patient.service';
 
 export class HistoryInformationComponent implements OnInit{
 	@Input() patientHistory:PatientHistory = new PatientHistory();
+	@Input() patient:Patient = new Patient();
 	goBack(): void {
 	  window.history.back();
 	}

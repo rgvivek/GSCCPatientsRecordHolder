@@ -25,6 +25,8 @@ import { PersonalHistoryComponent }  from './patient-detail/history-information/
 import { HistoryOfIllnessComponent }  from './patient-detail/history-information/history-of-illness/history-of-illness.component';
 import { MedicalHistoryComponent }  from './patient-detail/history-information/medical-history/medical-history.component';
 import { CurrentMedicationsComponent }  from './patient-detail/history-information/current-medications/current-medications.component';
+import { ObstetricHistoryComponent }  from './patient-detail/history-information/obstetric-history/obstetric-history.component';
+import { GynaecologicalHistoryComponent }  from './patient-detail/history-information/gynaecological-history/gynaecological-history.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
 import { UserService } from './user/user.service';
 
@@ -57,7 +59,9 @@ import { UserService } from './user/user.service';
     PersonalHistoryComponent,
     HistoryOfIllnessComponent,
     MedicalHistoryComponent,
-    CurrentMedicationsComponent
+    CurrentMedicationsComponent,
+    ObstetricHistoryComponent,
+    GynaecologicalHistoryComponent
   ],
   providers: [PatientService, UserService, CookieService ],
   bootstrap: [ AppComponent ]

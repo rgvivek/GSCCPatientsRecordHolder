@@ -20,6 +20,7 @@ export class PatientService {
      // private instance variable to hold base url
      private patientsUrl = 'http://localhost:8000/patients'; 
      private patientHistoryUrl = 'http://localhost:8000/patientHistory'; 
+     private femalePatientHistoryUrl = 'http://localhost:8000/femalePatientHistory'; 
      private header = {headers:{}};
      private isLoginSuccess : Boolen = false;
      loginSuccess:BehaviorSubject = new BehaviorSubject(null);
@@ -49,6 +50,12 @@ export class PatientService {
 
 	savePatientHistory(patientHistory : PatientHistory) : void{
 		let res = this.http.post(this.patientHistoryUrl, patientHistory, this.header).map(this.extractData.bind(this))
+                    .catch(this.handleError);
+		return res;
+	}
+
+	saveFemalePatientHistory(patientHistory : PatientHistory) : void{
+		let res = this.http.post(this.femalePatientHistoryUrl, patientHistory, this.header).map(this.extractData.bind(this))
                     .catch(this.handleError);
 		return res;
 	}

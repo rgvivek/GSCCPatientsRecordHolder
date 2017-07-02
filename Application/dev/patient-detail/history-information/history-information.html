@@ -14,5 +14,10 @@
 	<tab tabTitle="Current Medications" isVertical="true">
 		<pd-current-medications [patientHistory]="patientHistory"></pd-current-medications>
 	</tab>
-	<tab tabTitle="Mode Of Treatment" isVertical="true">Tab 2 Diagnosis</tab>
+	<tab tabTitle="Obstetric History" isVertical="true" *ngIf="patient.sex=='Female'">
+		<pd-obstetric-history [patientHistory]="patientHistory"></pd-obstetric-history>
+	</tab>
+	<tab tabTitle="Gynaecological History" isVertical="true" *ngIf="patient.sex=='Female'">
+		<pd-gynaecological-history [patientHistory]="patientHistory"></pd-gynaecological-history>
+	</tab>
 </tabs>

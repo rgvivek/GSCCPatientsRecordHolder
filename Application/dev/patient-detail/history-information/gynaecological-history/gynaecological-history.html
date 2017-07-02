@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<div class="alert alert-success" *ngIf="status === 'success' && !gynaecologicalHistoryForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+  		<form [formGroup]="gynaecologicalHistoryForm" (ngSubmit)="savePatientHistory(gynaecologicalHistoryForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}">
+	  		<gncc-input [labelText] = "'Age Of Onset'" [inputControl] = "gynaecologicalHistoryForm.controls['onsetage']" [inputType]="'number'"></gncc-input>
+	  		<gncc-input [labelText] = "'Cycle Duration'" [inputControl] = "gynaecologicalHistoryForm.controls['cycleduration']" [inputType]="'number'" *ngIf="patientHistory.onsetage"></gncc-input>
+	  		<gncc-input [labelText] = "'Bleeding Duration'" [inputControl] = "gynaecologicalHistoryForm.controls['bleedingduration']" [inputType]="'number'" *ngIf="patientHistory.onsetage"></gncc-input>
+	  		<gncc-input [labelText] = "'Bleeding Pain'" [inputControl] = "gynaecologicalHistoryForm.controls['bleedingpain']" [inputType]="'select'" [optionList]="bleedingPainList" *ngIf="patientHistory.onsetage"></gncc-input>
+	  		<gncc-input [labelText] = "'Ovulation Pain?'" [inputControl] = "gynaecologicalHistoryForm.controls['ovulationpain']" [inputType]="'toggle'" [groupName]="'ovulationpain'" *ngIf="patientHistory.onsetage"></gncc-input>
+			<gncc-input [labelText] = "'Menopause Reached?'" [inputControl] = "gynaecologicalHistoryForm.controls['menopausereached']" [inputType]="'toggle'" [groupName]="'MenopauseReached'" *ngIf="patientHistory.onsetage"></gncc-input>
+			<gncc-input [labelText] = "'Stopped Age'" [inputControl] = "gynaecologicalHistoryForm.controls['stoppedage']" [inputType]="'number'" *ngIf="patientHistory.onsetage && patientHistory.menopausereached"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Save Patient History</button>
+		</form>
+  	</div>
+</div>

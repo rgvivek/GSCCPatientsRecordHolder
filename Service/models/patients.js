@@ -27,12 +27,25 @@ function Patients() {
           res.send({status: 1, message: 'Patient creation failed'});
         } else {
           con.query('insert into patienthistory set ?', {patientid:result.insertId}, function(err, result1) {
-            con.release();
             if (err) {
+              con.release();
               console.log("Error :" + JSON.stringify(err))
               res.send({status: 1, message: 'Patient history creation failed'});
             } else {
-              res.send({status: 2, message: 'Patient created successfully', patientId : result.insertId});
+              if(patient.sex=='Female'){
+                con.release();
+                con.query('insert into patientgynaecologicalhistory set ?', {patienthistoryid:result1.insertId}, function(err, result2) {
+                  if (err) {
+                    console.log("Error :" + JSON.stringify(err))
+                    res.send({status: 1, message: 'Patient gynaecology history creation failed'});
+                  } else {
+                    res.send({status: 2, message: 'Patient created successfully', patientId : result.insertId});
+                  }
+                });
+              }else{
+                con.release();
+                res.send({status: 2, message: 'Patient created successfully', patientId : result.insertId});
+              }
             }
           });
         }
