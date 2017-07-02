@@ -154,7 +154,7 @@ footer{
 		width: 83.33333333%;
 		background-color: $green-1;
 		color: $white;
-		min-height: 260px;
+		min-height: 300px;
 		border-radius:5px;
 	}
 }
@@ -275,5 +275,22 @@ footer{
     	&-corner, &-thumb{
     		background : none;
     	}
+	}
+}
+
+.section{
+	background-color: $green-1;
+	color : $white;
+	padding: 5px;
+	border:1px solid $white;
+	>span{
+		border-right:1px solid $white;
+		line-height:2.5;
+		&:last-child{
+			border:0;
+		}
+	}
+	&.section-heading{
+		text-align:center;
 	}
 }

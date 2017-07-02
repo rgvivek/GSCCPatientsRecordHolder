@@ -28,7 +28,9 @@ import { CurrentMedicationsComponent }  from './patient-detail/history-informati
 import { ObstetricHistoryComponent }  from './patient-detail/history-information/obstetric-history/obstetric-history.component';
 import { GynaecologicalHistoryComponent }  from './patient-detail/history-information/gynaecological-history/gynaecological-history.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
+import { ManageTestsComponent }  from './manage-tests/manage-tests.component';
 import { UserService } from './user/user.service';
+import { TestService } from './test/test.service';
 
 @NgModule({
   imports: [ 
@@ -61,9 +63,10 @@ import { UserService } from './user/user.service';
     MedicalHistoryComponent,
     CurrentMedicationsComponent,
     ObstetricHistoryComponent,
-    GynaecologicalHistoryComponent
+    GynaecologicalHistoryComponent,
+    ManageTestsComponent
   ],
-  providers: [PatientService, UserService, CookieService ],
+  providers: [PatientService, UserService, CookieService, TestService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

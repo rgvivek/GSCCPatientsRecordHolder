@@ -57,4 +57,38 @@ CREATE TABLE `patienthistory` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `patientgynaecologicalhistory` (
+  `patienthistoryid` int(11) DEFAULT NULL,
+  `onsetage` int(11) DEFAULT NULL,
+  `stoppedage` int(11) DEFAULT NULL,
+  `cycleduration` int(11) DEFAULT NULL,
+  `bleedingduration` int(11) DEFAULT NULL,
+  `bleedingpain` varchar(45) DEFAULT NULL,
+  `ovulationpain` tinyint(1) DEFAULT NULL,
+  `menopausereached` tinyint(1) DEFAULT NULL,
+  `labourhistory` text,
+  KEY `patienthistoryid` (`patienthistoryid`),
+  CONSTRAINT `patientgynaecologicalhistory_ibfk_1` FOREIGN KEY (`patienthistoryid`) REFERENCES `patienthistory` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `test_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL unique,
+  `name` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `testcategory` varchar(100) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `testcategory` (`testcategory`),
+  CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`testcategory`) REFERENCES `test_category` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 INSERT INTO gscc.users (firstname,lastname,username,password,isAdmin) values ('GSCC','Admin','admin', '$2a$08$Vt3fKqJHuo0QfIXrNvKV6e/uyFC1CBOf4Qmefvn7crFWKaR9D0vNK', true);

@@ -1,5 +1,6 @@
 var patients = require('./models/patients');
 var patientHistory = require('./models/patientHistory');
+var tests = require('./models/tests');
 var User = require('./models/user');
 var jwt    = require('jsonwebtoken');
 
@@ -106,6 +107,30 @@ module.exports = {
 
     app.post('/femalePatientHistory/', isLoggedIn, function(req, res, next) {
       patientHistory.updateFemale(req.body, res);
+    });
+
+    app.get('/testCategories/', isLoggedIn, function(req, res, next) {
+      tests.getAllTestCategories(res);
+    });
+
+    app.get('/tests/', isLoggedIn, function(req, res, next) {
+      tests.getAllTests(res);
+    });
+
+    app.post('/testCategories/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        tests.updateTestCategory(req.body, res);
+      }else{
+        tests.createTestCategory(req.body, res);
+      }
+    });
+
+    app.post('/tests/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        tests.updateTest(req.body, res);
+      }else{
+        tests.createTest(req.body, res);
+      }
     });
 
     function isLoggedIn(req, res, next) {

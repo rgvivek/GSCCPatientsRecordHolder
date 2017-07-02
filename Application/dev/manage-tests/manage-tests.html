@@ -1,0 +1,87 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Manage Test Categories & Tests</h1>
+  		<tabs class="full-width-tabs">
+			<tab tabTitle="Test Categories">
+				<div class="alert alert-success" *ngIf="status === 'success' && testCategoryForm.pristine">
+				    <strong>Details saved successfully!</strong>
+				</div>
+				<div class="alert alert-danger" *ngIf="status === 'error'">
+				    <strong>{{errorMessage}}</strong>
+				</div>
+				<div class="alert alert-warning" *ngIf="saveButtonClicked && testCategoryForm.pristine">
+				    <strong>No changes to save!</strong>
+				</div>
+				<div class="col-xs-12" *ngIf="!editMode">
+					<div class="col-xs-12 section section-heading">
+						<span class="col-xs-2">Code</span>
+						<span class="col-xs-3">Name</span>
+						<span class="col-xs-5">Description</span>
+						<span class="col-xs-2">
+						</span>
+					</div> 
+					<div *ngFor="#testCategory of testCategories" class="col-xs-12 section">
+						<span class="col-xs-2">{{ testCategory.code }}</span>
+						<span class="col-xs-3">{{ testCategory.name }}</span>
+						<span class="col-xs-5">{{ testCategory.description }}</span>
+						<span class="col-xs-2">
+							<button class="btn btn-primary btn-block" (click)="editCategory(testCategory)">Edit</button>
+						</span>
+					</div> 
+					<button class="btn btn-primary btn-block" (click)="editCategory(newTestCategory)">Add Test Category</button>
+				</div>
+
+				<form [formGroup]="testCategoryForm" (ngSubmit)="saveCategory(testCategoryForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+					<gncc-input [labelText] = "'Code'" [inputControl] = "testCategoryForm.controls['code']"></gncc-input>
+
+					<gncc-input [labelText] = "'Name'" [inputControl] = "testCategoryForm.controls['name']"></gncc-input>
+
+					<gncc-input [labelText] = "'Description'" [inputControl] = "testCategoryForm.controls['description']"></gncc-input>
+
+					<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+					<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+				</form>
+			</tab>
+			<tab tabTitle="Tests">
+				<div class="alert alert-success" *ngIf="statusTest === 'success' && testForm.pristine">
+				    <strong>Details saved successfully!</strong>
+				</div>
+				<div class="alert alert-danger" *ngIf="statusTest === 'error'">
+				    <strong>{{errorMessageTest}}</strong>
+				</div>
+				<div class="alert alert-warning" *ngIf="saveButtonClicked && testForm.pristine">
+				    <strong>No changes to save!</strong>
+				</div>
+				<div class="col-xs-12" *ngIf="!editTestMode">
+					<div class="col-xs-12 section section-heading">
+						<span class="col-xs-2">Test Category</span>
+						<span class="col-xs-3">Name</span>
+						<span class="col-xs-5">Description</span>
+						<span class="col-xs-2">
+						</span>
+					</div> 
+					<div *ngFor="#test of tests" class="col-xs-12 section">
+						<span class="col-xs-2">{{ test.testcategory }}</span>
+						<span class="col-xs-3">{{ test.name }}</span>
+						<span class="col-xs-5">{{ test.description }}</span>
+						<span class="col-xs-2">
+							<button class="btn btn-primary btn-block" (click)="editTest(test)">Edit</button>
+						</span>
+					</div> 
+					<button class="btn btn-primary btn-block" (click)="editTest(newTest)">Add Test</button>
+				</div>
+
+				<form [formGroup]="testForm" (ngSubmit)="saveTest(testForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveTestButtonClicked}" *ngIf="editTestMode">
+					<gncc-input [labelText] = "'Test Category'" [inputControl] = "testForm.controls['testcategory']" [inputType]="'select'" [optionList]="testCategories"></gncc-input>
+
+					<gncc-input [labelText] = "'Name'" [inputControl] = "testForm.controls['name']"></gncc-input>
+
+					<gncc-input [labelText] = "'Description'" [inputControl] = "testForm.controls['description']"></gncc-input>
+
+					<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+					<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+				</form>
+			</tab>
+		</tabs>
+  	</div>
+</div>
