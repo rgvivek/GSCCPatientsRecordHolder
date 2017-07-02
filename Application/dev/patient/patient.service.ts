@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { CookieService } from 'angular2-cookie/core';
 import { Patient } from './patient';
+import { PatientHistory } from './patient-history';
 import { User } from 'app/user/user';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/Rx';
@@ -18,6 +19,7 @@ export class PatientService {
      }
      // private instance variable to hold base url
      private patientsUrl = 'http://localhost:8000/patients'; 
+     private patientHistoryUrl = 'http://localhost:8000/patientHistory'; 
      private header = {headers:{}};
      private isLoginSuccess : Boolen = false;
      loginSuccess:BehaviorSubject = new BehaviorSubject(null);
@@ -37,6 +39,18 @@ export class PatientService {
 		return this.http.get(`${this.patientsUrl}/${id}`, this.header)
                     .map(this.extractData.bind(this))
                     .catch(this.handleError);
+	}
+
+	getPatientHistory(id:string) : Observable<Patient>{
+		return this.http.get(`${this.patientHistoryUrl}/${id}`, this.header)
+                    .map(this.extractData.bind(this))
+                    .catch(this.handleError);
+	}
+
+	savePatientHistory(patientHistory : PatientHistory) : void{
+		let res = this.http.post(this.patientHistoryUrl, patientHistory, this.header).map(this.extractData.bind(this))
+                    .catch(this.handleError);
+		return res;
 	}
 
 	savePatient(patient : Patient) : void{

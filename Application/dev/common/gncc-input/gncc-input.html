@@ -19,6 +19,21 @@
         	</div>
     	</div>
   	</label>
+    <label class="col-xs-12 col-form-label" *ngSwitchCase="'textarea'">
+      <div class="col-xs-2 no-horizontal-padding">
+          {{labelText}}
+      </div>
+      <div class="col-xs-10 no-horizontal-padding">
+          <textarea class="form-control" [formControl]="inputControl" disabled={{disabled}} [rows]="rows">
+          </textarea>
+          <div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span [hidden]="!inputControl.errors?.required">
+                  Please enter {{labelText}}.
+            </span>  
+          </div>
+      </div>
+    </label>
     <label class="col-xs-12 col-form-label" *ngSwitchCase="'date'">
       <div class="col-xs-2 no-horizontal-padding">
           {{labelText}}
@@ -35,6 +50,25 @@
   		<input class="form-control" type="checkbox" [formControl]="inputControl">
   		{{labelText}}
   	</label>
+
+    <label class="col-xs-12 col-form-label" *ngSwitchCase="'toggle'">
+      <div class="col-xs-2 no-horizontal-padding">
+          {{labelText}}
+      </div>
+      <div class="col-xs-10 no-horizontal-padding">
+        <div class="col-xs-12 no-horizontal-padding">
+          <input name="{{groupName}}" type="radio" [value]="1"  [formControl]="inputControl">Yes 
+          <input name="{{groupName}}" type="radio" [value]="0"  [formControl]="inputControl">No
+        </div>
+        <div class="col-xs-12 no-horizontal-padding">
+          <div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              Please select {{labelText}}.  
+          </div>
+        </div>
+      </div>  
+    </label>
+
     <label class="col-xs-12 col-form-label" *ngSwitchCase="'select'">
       <div class="col-xs-2 no-horizontal-padding">
           {{labelText}}

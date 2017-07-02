@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<div class="alert alert-success" *ngIf="status === 'success' && !medicalHistoryForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+  		<form [formGroup]="medicalHistoryForm" (ngSubmit)="savePatientHistory(medicalHistoryForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}">
+			<gncc-input [inputType]="'textarea'" [labelText] = "'Past Medical History'" [inputControl] = "medicalHistoryForm.controls['pastmedicalhistory']" [rows]="10"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Save Patient History</button>
+		</form>
+  	</div>
+</div>

@@ -21,12 +21,20 @@ function Patients() {
   this.create = function(patient, res) {
     connection.acquire(function(err, con) {
       con.query('insert into patients set ?', patient, function(err, result) {
-        con.release();
         if (err) {
+          con.release();
           console.log("Error :" + JSON.stringify(err))
           res.send({status: 1, message: 'Patient creation failed'});
         } else {
-          res.send({status: 2, message: 'Patient created successfully', patientId : result.insertId});
+          con.query('insert into patienthistory set ?', {patientid:result.insertId}, function(err, result1) {
+            con.release();
+            if (err) {
+              console.log("Error :" + JSON.stringify(err))
+              res.send({status: 1, message: 'Patient history creation failed'});
+            } else {
+              res.send({status: 2, message: 'Patient created successfully', patientId : result.insertId});
+            }
+          });
         }
       });
     });

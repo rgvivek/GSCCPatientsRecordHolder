@@ -1,10 +1,18 @@
 <tabs isVertical='true'>
-	<tab tabTitle="Family History" isVertical="true">
-		Family content
+	<tab tabTitle="Family History" isVertical="true" >
+		<pd-family-history [patientHistory]="patientHistory"></pd-family-history>
 	</tab>
-	<tab tabTitle="Personal History" isVertical="true">Patient 2 Content</tab>
-	<tab tabTitle="History Of Illness" isVertical="true">Investigations 2 Content</tab>
-	<tab tabTitle="Past Medical History" isVertical="true">Tab 2 Investigations</tab>
-	<tab tabTitle="Current Medications" isVertical="true">Diagnosis 2 Content</tab>
+	<tab tabTitle="Personal History" isVertical="true">
+		<pd-personal-history [patientHistory]="patientHistory"></pd-personal-history>
+	</tab>
+	<tab tabTitle="History Of Illness" isVertical="true">
+		<pd-history-of-illness [patientHistory]="patientHistory"></pd-history-of-illness>
+	</tab>
+	<tab tabTitle="Past Medical History" isVertical="true">
+		<pd-medical-history [patientHistory]="patientHistory"></pd-medical-history>
+	</tab>
+	<tab tabTitle="Current Medications" isVertical="true">
+		<pd-current-medications [patientHistory]="patientHistory"></pd-current-medications>
+	</tab>
 	<tab tabTitle="Mode Of Treatment" isVertical="true">Tab 2 Diagnosis</tab>
 </tabs>

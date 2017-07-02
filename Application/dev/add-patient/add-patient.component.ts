@@ -23,7 +23,8 @@ export class AddPatientComponent{
 		    'lastname' : [null, Validators.required],
 		    'fathersname' : [null, Validators.required],
 		    'sex' : [null, Validators.required],
-		    'dateofbirth' : [null, Validators.required]
+		    'dateofbirth' : [null, Validators.required],
+		    'mobilenumber' : [null, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern])]
 		});
 		this.todaysDate = this.getDateAsString(new Date());
 	};

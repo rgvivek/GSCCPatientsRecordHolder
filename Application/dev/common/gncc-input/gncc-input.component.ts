@@ -6,7 +6,9 @@ import {Component, Input} from '@angular/core';
 })
 export class GnccInputComponent {
 	@Input() inputType: string = 'text';
+	@Input() rows: number = 3;
 	@Input() labelText: string = '';
+	@Input() groupName: string = '';
 	@Input() inputControl: AbstractControl;
 	@Input() placeholderText: string = '';
 	@Input() optionList:List = [];

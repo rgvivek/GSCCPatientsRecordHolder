@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<div class="alert alert-success" *ngIf="status === 'success' && !familyHistoryForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+  		<form [formGroup]="familyHistoryForm" (ngSubmit)="savePatientHistory(familyHistoryForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}">
+	  		<gncc-input [labelText] = "'Siblings Count'" [inputControl] = "familyHistoryForm.controls['siblingscount']" [inputType]="'number'"></gncc-input>
+
+			<gncc-input [labelText] = "'Marital Status'" [inputControl] = "familyHistoryForm.controls['maritalstatus']" [inputType]="'select'" [optionList]="maritalStatusList"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Kids Count'" [inputControl] = "familyHistoryForm.controls['kidscount']" [inputType]="'number'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Age Of Marriage'" [inputControl] = "familyHistoryForm.controls['ageofmarriage']" [inputType]="'number'"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Save Patient History</button>
+		</form>
+  	</div>
+</div>

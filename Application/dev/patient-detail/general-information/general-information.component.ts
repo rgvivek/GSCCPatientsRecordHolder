@@ -32,7 +32,7 @@ export class GeneralInformationComponent implements OnInit{
 			    'sex' : [this.patient.sex, Validators.required],
 			    'dateofbirth' : [this.patient.dateofbirth, Validators.required],
 			    'occupation' : [this.patient.occupation, Validators.required],
-			    'monthlyincome' : [this.patient.monthlyincome, Validators.compose([Validators.required, Validators.pattern])],
+			    'address' : [this.patient.address],
 			    'emailid' : [this.patient.emailid, Validators.compose([Validators.required, Validators.pattern])],
 			    'mobilenumber' : [this.patient.mobilenumber, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern])]
 			});

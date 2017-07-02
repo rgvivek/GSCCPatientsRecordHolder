@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Patient } from 'app/patient/patient';
+import { PatientHistory } from 'app/patient/patient-history';
 import { PatientService } from 'app/patient/patient.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { PatientService } from 'app/patient/patient.service';
 })
 
 export class HistoryInformationComponent implements OnInit{
-	@Input() patient:Patient = new Patient();
+	@Input() patientHistory:PatientHistory = new PatientHistory();
 	goBack(): void {
 	  window.history.back();
 	}

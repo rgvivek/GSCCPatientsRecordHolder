@@ -16,6 +16,8 @@
 	  		<gncc-input [labelText] = "'Sex'" [inputControl] = "addPatientForm.controls['sex']" [inputType]="'select'" [optionList]="sexList" [placeholderText] = "'Sex'"></gncc-input>
 			
 			<gncc-input [labelText] = "'Date of Birth'" [inputControl] = "addPatientForm.controls['dateofbirth']" [inputType]="'date'" [maxDate]="todaysDate"></gncc-input>
+
+			<gncc-input [labelText] = "'Mobile'" [inputControl] = "addPatientForm.controls['mobilenumber']" [placeholderText] = "'Mobile'" [inputType]="'number'"></gncc-input>
 			
 		  	<button class="btn btn-primary btn-block" type="submit">Add Patient</button>
 		</form>

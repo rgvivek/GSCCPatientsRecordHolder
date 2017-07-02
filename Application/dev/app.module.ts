@@ -20,6 +20,11 @@ import { PatientsComponent }  from './patients/patients.component';
 import { PatientDetailComponent }  from './patient-detail/patient-detail.component';
 import { GeneralInformationComponent }  from './patient-detail/general-information/general-information.component';
 import { HistoryInformationComponent }  from './patient-detail/history-information/history-information.component';
+import { FamilyHistoryComponent }  from './patient-detail/history-information/family-history/family-history.component';
+import { PersonalHistoryComponent }  from './patient-detail/history-information/personal-history/personal-history.component';
+import { HistoryOfIllnessComponent }  from './patient-detail/history-information/history-of-illness/history-of-illness.component';
+import { MedicalHistoryComponent }  from './patient-detail/history-information/medical-history/medical-history.component';
+import { CurrentMedicationsComponent }  from './patient-detail/history-information/current-medications/current-medications.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
 import { UserService } from './user/user.service';
 
@@ -47,7 +52,12 @@ import { UserService } from './user/user.service';
   	PatientDetailComponent,
     AddPatientComponent,
     GeneralInformationComponent,
-    HistoryInformationComponent
+    HistoryInformationComponent,
+    FamilyHistoryComponent,
+    PersonalHistoryComponent,
+    HistoryOfIllnessComponent,
+    MedicalHistoryComponent,
+    CurrentMedicationsComponent
   ],
   providers: [PatientService, UserService, CookieService ],
   bootstrap: [ AppComponent ]

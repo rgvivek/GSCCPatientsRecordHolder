@@ -1,4 +1,5 @@
 var patients = require('./models/patients');
+var patientHistory = require('./models/patientHistory');
 var User = require('./models/user');
 var jwt    = require('jsonwebtoken');
 
@@ -89,6 +90,18 @@ module.exports = {
 
     app.delete('/patients/:id/', isLoggedIn, function(req, res, next) {
       patients.delete(req.params.id, res);
+    });
+
+    app.get('/patientHistory/:id/', isLoggedIn, function(req, res, next) {
+      patientHistory.get(req.params.id, res);
+    });
+
+    app.post('/patientHistory/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        patientHistory.update(req.body, res);
+      }else{
+        patientHistory.create(req.body, res);
+      }
     });
 
     function isLoggedIn(req, res, next) {
