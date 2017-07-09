@@ -1,0 +1,62 @@
+<div class="col-xs-12 no-horizontal-padding" [ngSwitch]="mode">
+	<div class="alert alert-success" *ngIf="status === 'success' && testReportForm.pristine">
+	    <strong>Details saved successfully!</strong>
+	</div>
+	<div class="alert alert-danger" *ngIf="status === 'error'">
+	    <strong>{{errorMessage}}</strong>
+	</div>
+	<div class="alert alert-warning" *ngIf="saveButtonClicked && testReportForm.pristine">
+	    <strong>No changes to save!</strong>
+	</div>
+	<div class="col-xs-12" *ngSwitchDefault>
+		<div *ngIf="clinicalTestReports && clinicalTestReports.length > 0" class="col-xs-12 section section-heading">
+			<span class="col-xs-2">Test Name</span>
+			<span class="col-xs-3">Latest Observations</span>
+			<span class="col-xs-5">Conducted Dates</span>
+			<span class="col-xs-2">
+			</span>
+		</div> 
+		<div *ngIf="!clinicalTestReports || clinicalTestReports.length == 0" class="col-xs-12 section">
+			<span class="col-xs-12">No test reports available under this category for this patient.</span>
+		</div>
+		<div *ngFor="#testReport of clinicalTestReports" class="col-xs-12 section">
+			<span class="col-xs-2">{{ testReport.testname }}</span>
+			<span class="col-xs-3">{{ testReport.result }}</span>
+			<span class="col-xs-5">{{ testReport.conducteddate }}</span>
+			<span class="col-xs-2">
+				<button class="btn btn-primary btn-block" (click)="viewTest(testReport.testid)">View All</button>
+			</span>
+		</div> 
+		<button class="btn btn-primary btn-block" (click)="editTestReport(newTestReport)">Add Test Report</button>
+	</div>
+
+	<div class="col-xs-12" *ngSwitchCase="'viewConsolidated'">
+		<button class="btn btn-primary btn-block" (click)="cancel()">View All Test Reports</button>
+		<h1 class="heading-1">{{aggregatedTests[currentTestId][0].testname}}</h1>
+		<div class="col-xs-12 section section-heading">
+			<span class="col-xs-3">Date</span>
+			<span class="col-xs-7">Observations</span>
+			<span class="col-xs-2">
+			</span>
+		</div> 
+		<div *ngFor="#testReport of aggregatedTests[currentTestId];#last = last" class="col-xs-12 section">
+			<span class="col-xs-3">{{ testReport.conducteddate }}</span>
+			<span class="col-xs-7">{{ testReport.result }}</span>
+			<span class="col-xs-2">
+				<button class="btn btn-primary btn-block" (click)="editTestReport(testReport)" *ngIf="last">Edit</button>
+			</span>
+		</div> 
+		<button class="btn btn-primary btn-block" (click)="editTestReport(newTestReport)">Add Test Report</button>
+	</div>
+
+	<form [formGroup]="testReportForm" (ngSubmit)="saveReport(testReportForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngSwitchCase="'edit'">
+		<gncc-input [labelText] = "'Test Name'" [inputControl] = "testReportForm.controls['testid']" [inputType]="'select'" [optionList]="clinicalTests"  [optionValueField]="'id'"></gncc-input>
+		
+		<gncc-input [labelText] = "'Observations'" [inputControl] = "testReportForm.controls['result']"></gncc-input>
+
+		<gncc-input [labelText] = "'Conducted Date'" [inputControl] = "testReportForm.controls['conducteddate']"  [inputType]="'date'" [maxDate]="todaysDate"></gncc-input>
+
+		<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+		<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+	</form>
+</div>

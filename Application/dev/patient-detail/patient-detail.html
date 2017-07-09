@@ -8,8 +8,15 @@
 			<tab tabTitle="Patient History">
 				<pd-history-information [patientHistory]="patientHistory" [patient]="patient"></pd-history-information>
 			</tab>
-			<tab tabTitle="Cinical Investigations">Investigations 2 Content</tab>
-			<tab tabTitle="Special Investigations">Tab 2 Investigations</tab>
+			<tab tabTitle="Physical Examination">
+				<pd-investigation-information [patient]="patient" [tests]="allTests" [investigationCategories]="physicalExaminationInvestigationCategories"> </pd-investigation-information>
+			</tab>
+			<tab tabTitle="Cinical Investigations">
+				<pd-investigation-information [patient]="patient" [tests]="allTests" [investigationCategories]="clinicalInvestigationCategories"> </pd-investigation-information>
+			</tab>
+			<tab tabTitle="Special Investigations">
+				<pd-investigation-information [patient]="patient" [tests]="allTests" [investigationCategories]="specialInvestigationCategories"> </pd-investigation-information>
+			</tab>
 			<tab tabTitle="Diagnosis">Diagnosis 2 Content</tab>
 			<tab tabTitle="Mode Of Treatment">Tab 2 Diagnosis</tab>
 		</tabs>

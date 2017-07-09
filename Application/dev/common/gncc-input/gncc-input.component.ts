@@ -15,4 +15,6 @@ export class GnccInputComponent {
 	@Input() minDate:string = '';
 	@Input() maxDate:string = '';
 	@Input() disabled:string = '';
+	@Input() optionDisplayField: string = 'name';
+	@Input() optionValueField: string = 'code';
 }

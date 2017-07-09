@@ -23,7 +23,7 @@
 					<div *ngFor="#testCategory of testCategories" class="col-xs-12 section">
 						<span class="col-xs-2">{{ testCategory.code }}</span>
 						<span class="col-xs-3">{{ testCategory.name }}</span>
-						<span class="col-xs-5">{{ testCategory.description }}</span>
+						<span class="col-xs-5">{{ testCategory.description || '-' }}</span>
 						<span class="col-xs-2">
 							<button class="btn btn-primary btn-block" (click)="editCategory(testCategory)">Edit</button>
 						</span>
@@ -42,6 +42,48 @@
 					<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
 				</form>
 			</tab>
+
+			<tab tabTitle="Investigation Categories">
+				<div class="alert alert-success" *ngIf="statusInvestigation === 'success' && investigationCategoryForm.pristine">
+				    <strong>Details saved successfully!</strong>
+				</div>
+				<div class="alert alert-danger" *ngIf="statusInvestigation === 'error'">
+				    <strong>{{errorMessage}}</strong>
+				</div>
+				<div class="alert alert-warning" *ngIf="saveInvestigationButtonClicked && investigationCategoryForm.pristine">
+				    <strong>No changes to save!</strong>
+				</div>
+				<div class="col-xs-12" *ngIf="!editInvestigationMode">
+					<div class="col-xs-12 section section-heading">
+						<span class="col-xs-2">Code</span>
+						<span class="col-xs-3">Name</span>
+						<span class="col-xs-5">Description</span>
+						<span class="col-xs-2">
+						</span>
+					</div> 
+					<div *ngFor="#investigationCategory of investigationCategories" class="col-xs-12 section">
+						<span class="col-xs-2">{{ investigationCategory.code }}</span>
+						<span class="col-xs-3">{{ investigationCategory.name }}</span>
+						<span class="col-xs-5">{{ investigationCategory.description || '-' }}</span>
+						<span class="col-xs-2">
+							<button class="btn btn-primary btn-block" (click)="editInvestigationCategory(investigationCategory)">Edit</button>
+						</span>
+					</div> 
+					<button class="btn btn-primary btn-block" (click)="editInvestigationCategory(newInvestigationCategory)">Add Investigation Category</button>
+				</div>
+
+				<form [formGroup]="investigationCategoryForm" (ngSubmit)="saveInvestigationCategory(investigationCategoryForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveInvestigationButtonClicked}" *ngIf="editInvestigationMode">
+					<gncc-input [labelText] = "'Code'" [inputControl] = "investigationCategoryForm.controls['code']"></gncc-input>
+
+					<gncc-input [labelText] = "'Name'" [inputControl] = "investigationCategoryForm.controls['name']"></gncc-input>
+
+					<gncc-input [labelText] = "'Description'" [inputControl] = "investigationCategoryForm.controls['description']"></gncc-input>
+
+					<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+					<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+				</form>
+			</tab>
+
 			<tab tabTitle="Tests">
 				<div class="alert alert-success" *ngIf="statusTest === 'success' && testForm.pristine">
 				    <strong>Details saved successfully!</strong>
@@ -55,16 +97,18 @@
 				<div class="col-xs-12" *ngIf="!editTestMode">
 					<div class="col-xs-12 section section-heading">
 						<span class="col-xs-2">Test Category</span>
+						<span class="col-xs-3">Investigation Category</span>
 						<span class="col-xs-3">Name</span>
-						<span class="col-xs-5">Description</span>
-						<span class="col-xs-2">
+						<span class="col-xs-3">Description</span>
+						<span class="col-xs-1">
 						</span>
 					</div> 
 					<div *ngFor="#test of tests" class="col-xs-12 section">
-						<span class="col-xs-2">{{ test.testcategory }}</span>
+						<span class="col-xs-2">{{ test.testcategoryname }}</span>
+						<span class="col-xs-3">{{ test.investigationcategoryname }}</span>
 						<span class="col-xs-3">{{ test.name }}</span>
-						<span class="col-xs-5">{{ test.description }}</span>
-						<span class="col-xs-2">
+						<span class="col-xs-3">{{ test.description || '-' }}</span>
+						<span class="col-xs-1">
 							<button class="btn btn-primary btn-block" (click)="editTest(test)">Edit</button>
 						</span>
 					</div> 
@@ -73,6 +117,8 @@
 
 				<form [formGroup]="testForm" (ngSubmit)="saveTest(testForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveTestButtonClicked}" *ngIf="editTestMode">
 					<gncc-input [labelText] = "'Test Category'" [inputControl] = "testForm.controls['testcategory']" [inputType]="'select'" [optionList]="testCategories"></gncc-input>
+
+					<gncc-input [labelText] = "'Investigation Category'" [inputControl] = "testForm.controls['investigationcategory']" [inputType]="'select'" [optionList]="investigationCategories"></gncc-input>
 
 					<gncc-input [labelText] = "'Name'" [inputControl] = "testForm.controls['name']"></gncc-input>
 

@@ -113,6 +113,10 @@ module.exports = {
       tests.getAllTestCategories(res);
     });
 
+    app.get('/investigationCategories/', isLoggedIn, function(req, res, next) {
+      tests.getAllInvestigationCategories(res);
+    });
+
     app.get('/tests/', isLoggedIn, function(req, res, next) {
       tests.getAllTests(res);
     });
@@ -125,12 +129,36 @@ module.exports = {
       }
     });
 
+    app.post('/investigationCategories/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        tests.updateInvestigationCategory(req.body, res);
+      }else{
+        tests.createInvestigationCategory(req.body, res);
+      }
+    });
+
     app.post('/tests/', isLoggedIn, function(req, res, next) {
       if(req.body.id){
         tests.updateTest(req.body, res);
       }else{
         tests.createTest(req.body, res);
       }
+    });
+
+    app.get('/testReports/:id/', isLoggedIn, function(req, res, next) {
+      tests.getAllTestResults(req.params.id, res);
+    });
+
+    app.post('/testReports/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        tests.updateTestResult(req.body, res);
+      }else{
+        tests.addTestResult(req.body, res);
+      }
+    });
+
+    app.delete('/testReports/:id/', isLoggedIn, function(req, res, next) {
+      tests.deleteTestResult(req.params.id, res);
     });
 
     function isLoggedIn(req, res, next) {

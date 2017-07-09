@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { CookieService } from 'angular2-cookie/core';
 import { User } from 'app/user/user';
+import { Test } from 'app/test/test';
+import { TestCategory } from 'app/test/test-category';
+import { InvestigationCategory } from 'app/test/investigation-category';
+import { TestReport } from 'app/test/test-report';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Router } from '@angular/router';
@@ -18,7 +22,9 @@ export class TestService {
     
     // private instance variable to hold base url
     private testCategoryUrl = 'http://localhost:8000/testCategories'; 
-    private testUrl = 'http://localhost:8000/tests'; 
+    private investigationCategoryUrl = 'http://localhost:8000/investigationCategories'; 
+    private testUrl = 'http://localhost:8000/tests';
+    private testReportsUrl = 'http://localhost:8000/testReports'; 
     private header = {headers:{}};
     private isLoginSuccess : Boolen = false;
     loginSuccess:BehaviorSubject = new BehaviorSubject(null);
@@ -30,9 +36,23 @@ export class TestService {
                     .catch(this.handleError);
 	}
 
+	getInvestigationCategories() : Observable<InvestigationCategory[]>{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		return this.http.get(this.investigationCategoryUrl, this.header)
+                    .map(this.extractData.bind(this))
+                    .catch(this.handleError);
+	}
+
 	getTests() : Observable<Test>{
 		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
 		return this.http.get(this.testUrl, this.header)
+                    .map(this.extractData.bind(this))
+                    .catch(this.handleError);
+	}
+
+	getTestReports(patientId:string) : Observable<TestReport[]>{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		return this.http.get(`${this.testReportsUrl}/${patientId}`, this.header)
                     .map(this.extractData.bind(this))
                     .catch(this.handleError);
 	}
@@ -44,9 +64,22 @@ export class TestService {
 		return res;
 	}
 
+	saveInvestigationCategory(investigationCategory : InvestigationCategory) : void{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		let res = this.http.post(this.investigationCategoryUrl, investigationCategory, this.header).map(this.extractData.bind(this)).catch(this.handleError);
+		return res;
+	}
+
 	saveTest(test : Test) : void{
 		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
 		let res = this.http.post(this.testUrl, test, this.header).map(this.extractData.bind(this))
+                    .catch(this.handleError);
+		return res;
+	}
+
+	saveTestReport(testReport : TestReport) : void{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		let res = this.http.post(this.testReportsUrl, testReport, this.header).map(this.extractData.bind(this))
                     .catch(this.handleError);
 		return res;
 	}

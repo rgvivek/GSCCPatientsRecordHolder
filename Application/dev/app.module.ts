@@ -20,6 +20,7 @@ import { PatientsComponent }  from './patients/patients.component';
 import { PatientDetailComponent }  from './patient-detail/patient-detail.component';
 import { GeneralInformationComponent }  from './patient-detail/general-information/general-information.component';
 import { HistoryInformationComponent }  from './patient-detail/history-information/history-information.component';
+import { InvestigationInformationComponent }  from './patient-detail/investigation-information/investigation-information.component';
 import { FamilyHistoryComponent }  from './patient-detail/history-information/family-history/family-history.component';
 import { PersonalHistoryComponent }  from './patient-detail/history-information/personal-history/personal-history.component';
 import { HistoryOfIllnessComponent }  from './patient-detail/history-information/history-of-illness/history-of-illness.component';
@@ -57,6 +58,7 @@ import { TestService } from './test/test.service';
     AddPatientComponent,
     GeneralInformationComponent,
     HistoryInformationComponent,
+    InvestigationInformationComponent,
     FamilyHistoryComponent,
     PersonalHistoryComponent,
     HistoryOfIllnessComponent,

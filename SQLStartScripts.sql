@@ -91,4 +91,54 @@ CREATE TABLE `tests` (
   CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`testcategory`) REFERENCES `test_category` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `test_results` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `patientid` int(11) DEFAULT NULL,
+  `testid` int(11) DEFAULT NULL,
+  `result` varchar(100) DEFAULT NULL,
+  `conducteddate` varchar(15) DEFAULT NULL,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modifieddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `patientid` (`patientid`),
+  KEY `testid` (`testid`),
+  CONSTRAINT `test_results_ibfk_1` FOREIGN KEY (`patientid`) REFERENCES `patients` (`id`),
+  CONSTRAINT `test_results_ibfk_2` FOREIGN KEY (`testid`) REFERENCES `tests` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+INSERT INTO `gscc`.`investigation_category`
+(`code`,
+`name`,
+`description`)
+VALUES
+('PHYGEN',
+'Physical Examination (General)',
+'General physical examination');
+INSERT INTO `gscc`.`investigation_category`
+(`code`,
+`name`,
+`description`)
+VALUES
+('PHYSYS',
+'Physical Examination (Systematic)',
+'Systematic physical examination');
+INSERT INTO `gscc`.`investigation_category`
+(`code`,
+`name`,
+`description`)
+VALUES
+('CLIINV',
+'Clinical Investigation',
+'Clinical Investigation');
+INSERT INTO `gscc`.`investigation_category`
+(`code`,
+`name`,
+`description`)
+VALUES
+('SPLINV',
+'Special Investigation',
+'Special Investigation');
+
 INSERT INTO gscc.users (firstname,lastname,username,password,isAdmin) values ('GSCC','Admin','admin', '$2a$08$Vt3fKqJHuo0QfIXrNvKV6e/uyFC1CBOf4Qmefvn7crFWKaR9D0vNK', true);

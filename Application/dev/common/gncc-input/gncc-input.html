@@ -76,7 +76,7 @@
       <div class="col-xs-10 no-horizontal-padding">
         <select class="form-control" [formControl]="inputControl" disabled={{disabled}}>
           <option value=null> Select </option>
-          <option *ngFor="let currentOption of optionList" [ngValue]="currentOption.code || currentOption">{{currentOption.name || currentOption}}</option>
+          <option *ngFor="let currentOption of optionList" [ngValue]="currentOption[optionValueField] || currentOption">{{currentOption[optionDisplayField] || currentOption}}</option>
         </select>
         <div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

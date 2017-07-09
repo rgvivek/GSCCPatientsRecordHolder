@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Test } from 'app/test/test';
 import { TestCategory } from 'app/test/test-category';
+import { InvestigationCategory } from 'app/test/investigation-category';
 import { Router } from '@angular/router';
 import { TestService } from 'app/test/test.service';
 
@@ -11,11 +12,19 @@ import { TestService } from 'app/test/test.service';
 })
 export class ManageTestsComponent implements OnInit{
 	private fb: FormBuilder = new FormBuilder();
+	
 	private newTestCategory:TestCategory = new TestCategory();
+	private newInvestigationCategory = new InvestigationCategory();
+	private newTest:Test = new Test();
+	
 	private saveButtonClicked:boolean = false;
 	private status:boolean = false;
 	private editMode:boolean = false;
-	private newTest:Test = new Test();
+
+	private saveInvestigationButtonClicked:boolean = false;
+	private statusInvestigation:boolean = false;
+	private editInvestigationMode:boolean = false;
+
 	private saveTestButtonClicked:boolean = false;
 	private editTestMode:boolean = false;
 	private statusTest:boolean = false;
@@ -32,6 +41,11 @@ export class ManageTestsComponent implements OnInit{
         this.testService.getTestCategories().subscribe(
                     testCategories => {
                     	this.testCategories = testCategories;
+                    },
+                    error =>  this.errorMessage = <any>error);
+        this.testService.getInvestigationCategories().subscribe(
+                    investigationCategories => {
+                    	this.investigationCategories = investigationCategories;
                     },
                     error =>  this.errorMessage = <any>error);
 	}
@@ -78,11 +92,52 @@ export class ManageTestsComponent implements OnInit{
 			);
 		}
 	}
+	editInvestigationCategory(investigationCategory:InvestigationCategory):void{
+		this.editInvestigationMode = true;
+		this.investigationCategoryForm = this.fb.group({
+			'id':[investigationCategory.id],
+			'code' : [investigationCategory.code, Validators.required],
+		    'name' : [investigationCategory.name, Validators.required],
+		    'description' : [investigationCategory.description]
+		});
+	}
+	saveInvestigationCategory(formData : any): void {
+		this.saveInvestigationButtonClicked = true;
+		this.statusInvestigation = null;
+		if(this.investigationCategoryForm.valid && this.investigationCategoryForm.dirty){
+			this.testService.saveInvestigationCategory(formData).subscribe(
+				response => {
+			  		var statusInvestigation = response.status;
+			  		this.saveInvestigationButtonClicked = false;
+			  		switch(statusInvestigation){
+			  			case 2:{
+			  				this.statusInvestigation = 'success';
+			  				this.investigationCategoryForm.markAsPristine();
+			  				this.newInvestigationCategory = new InvestigationCategory();
+			  				this.editInvestigationMode = false;
+			  				this.getTests();
+			  				break;
+			  			}
+			  			case 1:{
+			  				this.statusInvestigation = 'error';
+			  				this.errorMessage = response.message;
+			  				break;
+			  			}
+			  		}
+			  	},
+			  	error =>  {
+			  		this.statusInvestigation = 'error';
+			  		this.errorMessage = <any>error;
+			  	}
+			);
+		}
+	}
 	editTest(test:Test):void{
 		this.editTestMode = true;
 		this.testForm = this.fb.group({
 			'id':[test.id],
 			'testcategory' : [test.testcategory, Validators.required],
+			'investigationcategory' : [test.investigationcategory, Validators.required],
 		    'name' : [test.name, Validators.required],
 		    'description' : [test.description]
 		});
@@ -121,6 +176,7 @@ export class ManageTestsComponent implements OnInit{
 	cancel():void{
 		this.editMode = false;
 		this.editTestMode = false;
+		this.editInvestigationMode = false;
 	}
 	goBack(): void {
 	  window.history.back();
