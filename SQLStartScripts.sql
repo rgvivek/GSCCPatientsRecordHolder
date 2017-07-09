@@ -91,6 +91,16 @@ CREATE TABLE `tests` (
   CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`testcategory`) REFERENCES `test_category` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `investigation_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `test_results` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `patientid` int(11) DEFAULT NULL,
