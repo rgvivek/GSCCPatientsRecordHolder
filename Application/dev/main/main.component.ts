@@ -32,6 +32,14 @@ export class MainComponent implements OnInit{
 	  let link = ['/manageTests'];
 	  this.router.navigate(link);
 	}
+	manageMedicines() : void {
+	  let link = ['/manageMedicines'];
+	  this.router.navigate(link);
+	}
+	manageDoctors() : void {
+	  let link = ['/manageDoctors'];
+	  this.router.navigate(link);
+	}
 	ngOnInit(): void {
 		this.patientService.authenticate().subscribe(
                     patients => this.patients = patients,

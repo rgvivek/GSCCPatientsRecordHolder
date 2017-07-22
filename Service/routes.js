@@ -1,6 +1,8 @@
 var patients = require('./models/patients');
 var patientHistory = require('./models/patientHistory');
 var tests = require('./models/tests');
+var medicines = require('./models/medicines');
+var appointments = require('./models/appointments');
 var User = require('./models/user');
 var jwt    = require('jsonwebtoken');
 
@@ -160,6 +162,63 @@ module.exports = {
     app.delete('/testReports/:id/', isLoggedIn, function(req, res, next) {
       tests.deleteTestResult(req.params.id, res);
     });
+
+    app.get('/medicines/', isLoggedIn, function(req, res, next) {
+      medicines.getAllMedicines( res);
+    });
+
+    app.post('/medicines/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        medicines.updateMedicine(req.body, res);
+      }else{
+        medicines.createMedicine(req.body, res);
+      }
+    });
+
+    app.delete('/medicines/:id/', isLoggedIn, function(req, res, next) {
+      medicines.deleteMedicine(req.params.id, res);
+    });
+
+    app.get('/medicinePurchase/', isLoggedIn, function(req, res, next) {
+      medicines.getAllMedicinesPurchases(req.params.startDate, req.params.endDate, res);
+    });
+
+    app.post('/medicinePurchase/', isLoggedIn, function(req, res, next) {
+      medicines.addMedicinePurchase(req.body, res);
+    });
+
+    app.get('/visits/:patientid/', isLoggedIn, function(req, res, next) {
+      appointments.getAllVisits(req.params.patientid, res);
+    });
+
+    app.post('/visits/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        appointments.updateAppointment(req.body, res);
+      }else{
+        appointments.createAppointment(req.body, res);
+      }
+    });
+
+    app.get('/doctors/', isLoggedIn, function(req, res, next) {
+      appointments.getAllDoctors(res);
+    });
+
+    app.post('/doctors/', isLoggedIn, function(req, res, next) {
+      if(req.body.id){
+        appointments.updateDoctor(req.body, res);
+      }else{
+        appointments.createDoctor(req.body, res);
+      }
+    });
+
+    app.get('/diagnosis/:patientid/', isLoggedIn, function(req, res, next) {
+      appointments.getAllDiagnosis(req.params.patientid, res);
+    });
+
+    app.post('/diagnosis/', isLoggedIn, function(req, res, next) {
+      appointments.saveDiagnosis(req.body, res);
+    });
+
 
     function isLoggedIn(req, res, next) {
       var token = req.headers['x-access-token'];

@@ -17,8 +17,9 @@
 			<tab tabTitle="Special Investigations">
 				<pd-investigation-information [patient]="patient" [tests]="allTests" [investigationCategories]="specialInvestigationCategories"> </pd-investigation-information>
 			</tab>
-			<tab tabTitle="Diagnosis">Diagnosis 2 Content</tab>
-			<tab tabTitle="Mode Of Treatment">Tab 2 Diagnosis</tab>
+			<tab tabTitle="Visits & Treatment">
+				<pd-visits-treatment-information [doctors]="doctors" [medicines]="medicines" [patient]="patient"></pd-visits-treatment-information>
+			</tab>
 		</tabs>
   	</div>
 </div>

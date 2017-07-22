@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Diagnosis</h1>
+  		<div class="alert alert-success" *ngIf="status === 'success' && !diagnosisForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+		<div class="col-xs-12" *ngIf="!editMode">
+			<div class="col-xs-12 section section-heading">
+				<span class="col-xs-4">Doctor</span>
+				<span class="col-xs-6">Comments</span>
+				<span class="col-xs-2">Date</span>
+			</div> 
+			<div *ngFor="let diagnosis of diagnosisList" class="col-xs-12 section">
+				<span class="col-xs-4">{{ diagnosis.doctorname }}</span>
+				<span class="col-xs-6">{{ diagnosis.result }}</span>
+				<span class="col-xs-2">{{ diagnosis.createddate }}</span>
+			</div> 
+			<button class="btn btn-primary btn-block" (click)="editDiagnosis(newDiagnosis)">Add Diagnosis</button>
+		</div>
+  		<form [formGroup]="diagnosisForm" (ngSubmit)="saveDiagnosis(diagnosisForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+	  		<gncc-input [labelText] = "'Doctor'" [inputControl] = "diagnosisForm.controls['doctorid']" [inputType]="'select'" [optionList]="doctors" [optionValueField]="'id'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Comments'" [inputControl] = "diagnosisForm.controls['result']" [inputType]="'textarea'"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Save Diagnosis</button>
+		</form>
+  	</div>
+</div>

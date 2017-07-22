@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Manage Doctors</h1>
+  		<div class="alert alert-success" *ngIf="status === 'success' && doctorForm.pristine">
+		    <strong>{{successMessage}}!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+		<div class="alert alert-warning" *ngIf="saveButtonClicked && doctorForm.pristine">
+		    <strong>No changes to save!</strong>
+		</div>
+		<div class="col-xs-12" *ngIf="!editMode">
+			<div class="col-xs-12 section section-heading">
+				<span class="col-xs-4">Name</span>
+				<span class="col-xs-3">Degree</span>
+				<span class="col-xs-3">Additional Details</span>
+				<span class="col-xs-2"></span>
+			</div> 
+			<div *ngFor="let doctor of doctors" class="col-xs-12 section">
+				<span class="col-xs-4">{{ doctor.name }}</span>
+				<span class="col-xs-3">{{ doctor.degree }}</span>
+				<span class="col-xs-3">{{ doctor.additionaldetails || '-'}}</span>
+				<span class="col-xs-2">
+					<button class="btn btn-primary btn-block" (click)="editDoctor(doctor)">Edit</button>
+				</span>
+			</div> 
+			<button class="btn btn-primary btn-block" (click)="editDoctor(newDoctor)">Add Doctor</button>
+		</div>
+
+		<form [formGroup]="doctorForm" (ngSubmit)="saveDoctor(doctorForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+
+			<gncc-input [labelText] = "'Name'" [inputControl] = "doctorForm.controls['name']"></gncc-input>
+
+			<gncc-input [labelText] = "'Degree'" [inputControl] = "doctorForm.controls['degree']"></gncc-input>
+
+			<gncc-input [labelText] = "'Additional Details'" [inputControl] = "doctorForm.controls['additionaldetails']"></gncc-input>
+
+			<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+			<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+		</form>
+  	</div>
+</div>

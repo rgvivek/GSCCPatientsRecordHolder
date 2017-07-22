@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Visits</h1>
+  		<div class="alert alert-success" *ngIf="status === 'success' && !visitForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+		<div class="col-xs-12" *ngIf="!editMode">
+			<div class="col-xs-12 section section-heading">
+				<span class="col-xs-3">Doctor</span>
+				<span class="col-xs-2">Date</span>
+				<span class="col-xs-2">Time</span>
+				<span class="col-xs-2">Status</span>
+				<span class="col-xs-3"></span>
+			</div> 
+			<div *ngFor="let visit of visits; let last = last" class="col-xs-12 section">
+				<span class="col-xs-3">{{ visit.doctorname }}</span>
+				<span class="col-xs-2">{{ visit.dateofappointment }}</span>
+				<span class="col-xs-2">{{ visit.timeofappointment }}</span>
+				<span class="col-xs-2">{{ visit.iscancelled?'Cancelled':(visit.isactive?'Scheduled':'Done' )}}</span>
+				<span class="col-xs-3">
+					<span class="col-xs-5">
+						<button class="btn btn-primary btn-block" (click)="editVisit(visit)" *ngIf="last && visit.isactive">Edit</button>
+					</span>
+					<span class="col-xs-7">
+						<button class="btn btn-primary btn-block" (click)="cancelVisit(visit)" *ngIf="last && visit.isactive">Cancel</button>
+					</span>
+				</span>
+			</div> 
+			<button class="btn btn-primary btn-block" (click)="editVisit(newVisit)">Add Visit</button>
+		</div>
+  		<form [formGroup]="visitForm" (ngSubmit)="saveVisit(visitForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+	  		<gncc-input [labelText] = "'Doctor'" [inputControl] = "visitForm.controls['doctorid']" [inputType]="'select'" [optionList]="doctors" [optionValueField]="'id'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Date Of Appointment'" [inputControl] = "visitForm.controls['dateofappointment']" [inputType]="'date'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Time Of Appointment'" [inputControl] = "visitForm.controls['timeofappointment']" [inputType]="'time'"></gncc-input>
+			
+		  	<button class="btn btn-primary btn-block" type="submit">Save Visit</button>
+		</form>
+  	</div>
+</div>

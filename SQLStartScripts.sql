@@ -118,6 +118,137 @@ CREATE TABLE `test_results` (
 
 
 
+CREATE TABLE `diagnosis` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `patientid` int(11) DEFAULT NULL,
+  `doctorid` int(11) DEFAULT NULL,
+  `result` text,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `patientid` (`patientid`),
+  CONSTRAINT `fk_diagnosis_patients` FOREIGN KEY (`patientid`) REFERENCES `patients` (`id`),
+  CONSTRAINT `fk_diagnosis_doctors` FOREIGN KEY (`doctorid`) REFERENCES `doctors` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `medicines` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `company` varchar(100) NOT NULL,
+  `description` text,
+  `price` int(10) NOT NULL,
+  `weightinmg` int(10) NOT NULL,
+  `totalstockspurchased` integer default 0,
+  `totalstocksissued` integer default 0,
+  `totalstocksavailable` integer default 0,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `medicines_purchase_log` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `medicineid` int(10) NOT NULL,
+  `totalweightinmgs` int,
+  `price`  long,
+  `comments` text,
+  `createddate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_MPL_MEDICINES` FOREIGN KEY (`medicineid`) REFERENCES `medicines` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `doctors` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  `degree` text not NULL,
+  `additionaldetails` varchar(15) DEFAULT NULL,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `appointments` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `patientid` int(11) NOT NULL,
+  `doctorid` int(11) NOT NULL,
+  `dateofappointment` varchar(15) DEFAULT NULL,
+  `timeofappointment` varchar(15) DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT 1,
+  `iscancelled` tinyint(1) DEFAULT 0,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updateddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_APPOINTMENTS_PATIENT` FOREIGN KEY (`patientid`) REFERENCES `patients` (`id`),
+  CONSTRAINT `FK_APPOINTMENTS_DOCTOR` FOREIGN KEY (`doctorid`) REFERENCES `doctors` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `medicine_combinations_issued` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `appointmentid` int(10) NOT NULL,
+  `name` text,
+  `dietaryrestrictions` text default NULL,
+  `consumptionmode` text default NULL,
+  `timeofmedication` text default NULL,
+  `stateformedication` text default NULL,
+  `priceperdose` long,
+  `totalprice` long,
+  `totaldays` int,
+  `totaldoses` int,
+  `discount` long,
+  `additionalcomments` text default NULL,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_MCI_APPOINTMENTS` FOREIGN KEY (`appointmentid`) REFERENCES `appointments` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `medicines_issued` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `combinationid` int(10) NOT NULL,
+  `medicineid` int(10) NOT NULL,
+  `price` long,
+  `weightinmg` int,
+  `additionalcomments` text default NULL,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_MCI_MI` FOREIGN KEY (`combinationid`) REFERENCES `medicine_combinations_issued` (`id`),
+  CONSTRAINT `FK_MEDICINES_MI` FOREIGN KEY (`medicineid`) REFERENCES `medicines` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+DELIMITER $$
+
+
+CREATE TRIGGER `updateMedicineOnStockPurchase` 
+AFTER INSERT ON `medicines_purchase_log`
+FOR EACH ROW 
+BEGIN
+	 update medicines set totalstockspurchased = totalstockspurchased + new.totalweightinmgs, totalstocksavailable=totalstocksavailable+new.totalweightinmgs where id = new.medicineid ;
+END$$
+
+DELIMITER $$
+
+CREATE TRIGGER `updateMCIOnIssueMedicine` 
+AFTER INSERT ON `medicines_issued`
+FOR EACH ROW 
+BEGIN
+	 update medicine_combinations_issued set name = (SELECT GROUP_CONCAT(CONCAT(m.name,'(', mi.weightinmg,')') SEPARATOR ', ')
+FROM medicines_issued mi inner join medicines m on m.id = mi.medicineid 
+where combinationid=0 group by mi.combinationid ) where id = new.combinationid ;
+END$$
+
+
+DELIMITER $$
+
+CREATE TRIGGER `updateMCIOnDeleteIssueMedicine` 
+AFTER DELETE ON `medicines_issued`
+FOR EACH ROW 
+BEGIN
+	 update medicine_combinations_issued set name = (SELECT GROUP_CONCAT(CONCAT(m.name,'(', mi.weightinmg,')') SEPARATOR ', ')
+FROM medicines_issued mi inner join medicines m on m.id = mi.medicineid 
+where combinationid=0 group by mi.combinationid ) where id = old.combinationid ;
+END$$
+
 INSERT INTO `gscc`.`investigation_category`
 (`code`,
 `name`,

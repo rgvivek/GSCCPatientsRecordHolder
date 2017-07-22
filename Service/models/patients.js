@@ -33,8 +33,8 @@ function Patients() {
               res.send({status: 1, message: 'Patient history creation failed'});
             } else {
               if(patient.sex=='Female'){
-                con.release();
                 con.query('insert into patientgynaecologicalhistory set ?', {patienthistoryid:result1.insertId}, function(err, result2) {
+                  con.release();
                   if (err) {
                     console.log("Error :" + JSON.stringify(err))
                     res.send({status: 1, message: 'Patient gynaecology history creation failed'});

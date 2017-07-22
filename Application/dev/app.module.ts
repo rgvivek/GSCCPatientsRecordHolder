@@ -23,6 +23,9 @@ import { HistoryInformationComponent }  from './patient-detail/history-informati
 import { InvestigationInformationComponent }  from './patient-detail/investigation-information/investigation-information.component';
 import { FamilyHistoryComponent }  from './patient-detail/history-information/family-history/family-history.component';
 import { PersonalHistoryComponent }  from './patient-detail/history-information/personal-history/personal-history.component';
+import { VisitsTreatmentInformationComponent }  from './patient-detail/visits-treatment-information/visits-treatment-information.component';
+import { VisitsInformationComponent }  from './patient-detail/visits-treatment-information/visits/visits.component';
+import { DiagnosisInformationComponent }  from './patient-detail/visits-treatment-information/diagnosis/diagnosis.component';
 import { HistoryOfIllnessComponent }  from './patient-detail/history-information/history-of-illness/history-of-illness.component';
 import { MedicalHistoryComponent }  from './patient-detail/history-information/medical-history/medical-history.component';
 import { CurrentMedicationsComponent }  from './patient-detail/history-information/current-medications/current-medications.component';
@@ -30,8 +33,13 @@ import { ObstetricHistoryComponent }  from './patient-detail/history-information
 import { GynaecologicalHistoryComponent }  from './patient-detail/history-information/gynaecological-history/gynaecological-history.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
 import { ManageTestsComponent }  from './manage-tests/manage-tests.component';
+import { ManageMedicinesComponent }  from './manage-medicines/manage-medicines.component';
+import { ManageDoctorsComponent }  from './manage-doctors/manage-doctors.component';
 import { UserService } from './user/user.service';
 import { TestService } from './test/test.service';
+import { MedicineService } from './medicine/medicine.service';
+import { TreatmentService } from './treatment/treatment.service';
+
 
 @NgModule({
   imports: [ 
@@ -61,14 +69,19 @@ import { TestService } from './test/test.service';
     InvestigationInformationComponent,
     FamilyHistoryComponent,
     PersonalHistoryComponent,
+    VisitsTreatmentInformationComponent,
+    VisitsInformationComponent,
+    DiagnosisInformationComponent,
     HistoryOfIllnessComponent,
     MedicalHistoryComponent,
     CurrentMedicationsComponent,
     ObstetricHistoryComponent,
     GynaecologicalHistoryComponent,
-    ManageTestsComponent
+    ManageTestsComponent,
+    ManageMedicinesComponent,
+    ManageDoctorsComponent
   ],
-  providers: [PatientService, UserService, CookieService, TestService ],
+  providers: [PatientService, UserService, CookieService, TestService, MedicineService, TreatmentService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

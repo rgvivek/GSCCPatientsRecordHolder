@@ -12,14 +12,14 @@
 		<div *ngIf="clinicalTestReports && clinicalTestReports.length > 0" class="col-xs-12 section section-heading">
 			<span class="col-xs-2">Test Name</span>
 			<span class="col-xs-3">Latest Observations</span>
-			<span class="col-xs-5">Conducted Dates</span>
+			<span class="col-xs-5">Last Conducted Date</span>
 			<span class="col-xs-2">
 			</span>
 		</div> 
 		<div *ngIf="!clinicalTestReports || clinicalTestReports.length == 0" class="col-xs-12 section">
 			<span class="col-xs-12">No test reports available under this category for this patient.</span>
 		</div>
-		<div *ngFor="#testReport of clinicalTestReports" class="col-xs-12 section">
+		<div *ngFor="let testReport of clinicalTestReports" class="col-xs-12 section">
 			<span class="col-xs-2">{{ testReport.testname }}</span>
 			<span class="col-xs-3">{{ testReport.result }}</span>
 			<span class="col-xs-5">{{ testReport.conducteddate }}</span>
@@ -39,7 +39,7 @@
 			<span class="col-xs-2">
 			</span>
 		</div> 
-		<div *ngFor="#testReport of aggregatedTests[currentTestId];#last = last" class="col-xs-12 section">
+		<div *ngFor="let testReport of aggregatedTests[currentTestId];let last = last" class="col-xs-12 section">
 			<span class="col-xs-3">{{ testReport.conducteddate }}</span>
 			<span class="col-xs-7">{{ testReport.result }}</span>
 			<span class="col-xs-2">

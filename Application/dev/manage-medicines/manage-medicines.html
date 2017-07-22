@@ -1,0 +1,77 @@
+<div class="panel panel-default" *ngIf="!purchaseMode">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Manage Medicine</h1>
+  		<div class="alert alert-success" *ngIf="status === 'success' && medicineForm.pristine">
+		    <strong>{{successMessage}}!</strong>
+		</div>
+		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+		<div class="alert alert-warning" *ngIf="saveButtonClicked && medicineForm.pristine">
+		    <strong>No changes to save!</strong>
+		</div>
+		<div class="col-xs-12" *ngIf="!editMode">
+			<div class="col-xs-12 section section-heading">
+				<span class="col-xs-3">Name</span>
+				<span class="col-xs-3">Company</span>
+				<span class="col-xs-2">Price (per mg/ml)</span>
+				<span class="col-xs-2">In Stock (in mg/ml)</span>
+				<span class="col-xs-2"></span>
+			</div> 
+			<div *ngFor="let medicine of medicines" class="col-xs-12 section">
+				<span class="col-xs-3">{{ medicine.name }}</span>
+				<span class="col-xs-3">{{ medicine.company }}</span>
+				<span class="col-xs-2">{{ medicine.price}}/{{ medicine.weightinmg}}</span>
+				<span class="col-xs-2">{{ medicine.totalstocksavailable}}</span>
+				<span class="col-xs-2">
+					<span class="col-xs-5 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="editMedicine(medicine)">Edit</button>
+					</span>
+					<span class="col-xs-7 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="addPurchase(medicine)">Add Stock</button>
+					</span>
+				</span>
+			</div> 
+			<button class="btn btn-primary btn-block" (click)="editMedicine(newMedicine)">Add Medicine</button>
+		</div>
+
+		<form [formGroup]="medicineForm" (ngSubmit)="saveMedicine(medicineForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+
+			<gncc-input [labelText] = "'Name'" [inputControl] = "medicineForm.controls['name']"></gncc-input>
+
+			<gncc-input [labelText] = "'Company'" [inputControl] = "medicineForm.controls['company']"></gncc-input>
+
+			<gncc-input [labelText] = "'Description'" [inputControl] = "medicineForm.controls['description']"></gncc-input>
+
+			<gncc-input [labelText] = "'Weight (in mgs)'" [inputControl] = "medicineForm.controls['weightinmg']" [inputType]="'number'"></gncc-input>
+
+			<gncc-input [labelText] = "'Price'" [inputControl] = "medicineForm.controls['price']" [inputType]="'number'"></gncc-input>
+
+			<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+			<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+		</form>
+  	</div>
+</div>
+<div class="panel panel-default" *ngIf="purchaseMode">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Add Stock For {{stockToBePurchased.name + " - " + stockToBePurchased.company}}</h1>
+  		<div class="alert alert-danger" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+		<div class="alert alert-warning" *ngIf="savePurchaseButtonClicked && purchaseForm.pristine">
+		    <strong>No changes to save!</strong>
+		</div>
+		
+		<form [formGroup]="purchaseForm" (ngSubmit)="savePurchase(purchaseForm.value)" novalidate="novalidate" [ngClass]="{submitted:savePurchaseButtonClicked}">
+
+			<gncc-input [labelText] = "'Total Weight (in mgs)'" [inputControl] = "purchaseForm.controls['totalweightinmgs']" [inputType]="'number'"></gncc-input>
+
+			<gncc-input [labelText] = "'Total Cost'" [inputControl] = "purchaseForm.controls['price']" [inputType]="'number'"></gncc-input>
+
+			<gncc-input [labelText] = "'Comments'" [inputControl] = "purchaseForm.controls['comments']"></gncc-input>
+
+			<div class="col-xs-6"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+			<div class="col-xs-6"><button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button></div>
+		</form>
+  	</div>
+</div>

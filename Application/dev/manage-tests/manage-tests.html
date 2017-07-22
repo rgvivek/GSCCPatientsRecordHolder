@@ -20,7 +20,7 @@
 						<span class="col-xs-2">
 						</span>
 					</div> 
-					<div *ngFor="#testCategory of testCategories" class="col-xs-12 section">
+					<div *ngFor="let testCategory of testCategories" class="col-xs-12 section">
 						<span class="col-xs-2">{{ testCategory.code }}</span>
 						<span class="col-xs-3">{{ testCategory.name }}</span>
 						<span class="col-xs-5">{{ testCategory.description || '-' }}</span>
@@ -61,7 +61,7 @@
 						<span class="col-xs-2">
 						</span>
 					</div> 
-					<div *ngFor="#investigationCategory of investigationCategories" class="col-xs-12 section">
+					<div *ngFor="let investigationCategory of investigationCategories" class="col-xs-12 section">
 						<span class="col-xs-2">{{ investigationCategory.code }}</span>
 						<span class="col-xs-3">{{ investigationCategory.name }}</span>
 						<span class="col-xs-5">{{ investigationCategory.description || '-' }}</span>
@@ -103,7 +103,7 @@
 						<span class="col-xs-1">
 						</span>
 					</div> 
-					<div *ngFor="#test of tests" class="col-xs-12 section">
+					<div *ngFor="let test of tests" class="col-xs-12 section">
 						<span class="col-xs-2">{{ test.testcategoryname }}</span>
 						<span class="col-xs-3">{{ test.investigationcategoryname }}</span>
 						<span class="col-xs-3">{{ test.name }}</span>

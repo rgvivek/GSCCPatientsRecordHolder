@@ -7,6 +7,8 @@ import { PatientsComponent } from './patients/patients.component';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 import { AddPatientComponent }  from './add-patient/add-patient.component';
 import { ManageTestsComponent }  from './manage-tests/manage-tests.component';
+import { ManageMedicinesComponent }  from './manage-medicines/manage-medicines.component';
+import { ManageDoctorsComponent }  from './manage-doctors/manage-doctors.component';
 
 const appRoutes: Routes = [
   	{
@@ -37,6 +39,12 @@ const appRoutes: Routes = [
   	},{
       path: 'manageTests',
       component: ManageTestsComponent
+    },{
+      path: 'manageMedicines',
+      component: ManageMedicinesComponent
+    },{
+      path: 'manageDoctors',
+      component: ManageDoctorsComponent
     }
 ];
 

@@ -2,6 +2,8 @@
   <div class="panel-body">
   	<button class="btn btn-primary btn-block" (click)="createUser()" *ngIf="isAdminView">Create User</button>
   	<button class="btn btn-primary btn-block" (click)="manageTests()" *ngIf="isAdminView">Manage Test  Categories & Tests</button>
+  	<button class="btn btn-primary btn-block" (click)="manageMedicines()" *ngIf="isAdminView">Manage Medicines</button>
+  	<button class="btn btn-primary btn-block" (click)="manageDoctors()" *ngIf="isAdminView">Manage Doctors</button>
   	<button class="btn btn-primary btn-block" (click)="goToPatients()">View Patients</button>
   	<button class="btn btn-primary btn-block" (click)="addPatient()">Add Patients</button>
   </div>
