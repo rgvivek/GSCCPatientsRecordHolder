@@ -3,7 +3,7 @@ import { Tab } from './tab';
 
 @Component({
   selector: 'tabs',
-  properties: {"isVertical":"isVertical"},
+  properties: {"isVertical":"isVertical", "customWidth":"customWidth"},
   template:`
     <ul class="nav {{tabsStyle}}">
       <li *ngFor="let tab of tabs" (click)="selectTab(tab)" [class.active]="tab.active" class="take-all-space-you-can">
@@ -19,9 +19,9 @@ export class Tabs implements AfterContentInit {
   
   tabsStyle:string = 'nav-tabs';
  
-  constructor(@Attribute('isVertical') isVertical:boolean) { 
+  constructor(@Attribute('isVertical') isVertical:boolean, @Attribute('customWidth') customWidth:number) { 
       if(isVertical){
-        this.tabsStyle = 'nav-pills nav-stacked col-xs-2';
+        this.tabsStyle = 'nav-pills nav-stacked col-xs-' + (customWidth || 2);
       }
   };
 

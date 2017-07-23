@@ -1,21 +1,91 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="appointment && appointment.id != 0">
   	<div class="panel-body">
-  		<div class="alert alert-success" *ngIf="status === 'success' && !familyHistoryForm.dirty">
+  		<div class="alert alert-success" *ngIf="status === 'success' && !medicineCombinationForm.dirty">
 		    <strong>Details saved successfully!</strong>
 		</div>
 		<div class="alert alert-danger" *ngIf="status === 'error'">
 		    <strong>{{errorMessage}}</strong>
 		</div>
-  		<form [formGroup]="familyHistoryForm" (ngSubmit)="savePatientHistory(familyHistoryForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}">
-	  		<gncc-input [labelText] = "'Siblings Count'" [inputControl] = "familyHistoryForm.controls['siblingscount']" [inputType]="'number'"></gncc-input>
-
-			<gncc-input [labelText] = "'Marital Status'" [inputControl] = "familyHistoryForm.controls['maritalstatus']" [inputType]="'select'" [optionList]="maritalStatusList"></gncc-input>
-
-	  		<gncc-input [labelText] = "'Kids Count'" [inputControl] = "familyHistoryForm.controls['kidscount']" [inputType]="'number'"></gncc-input>
-
-	  		<gncc-input [labelText] = "'Age Of Marriage'" [inputControl] = "familyHistoryForm.controls['ageofmarriage']" [inputType]="'number'"></gncc-input>
-			
-		  	<button class="btn btn-primary btn-block" type="submit">Save Patient History</button>
+		<div class="col-xs-12 printable-medication" *ngIf="!editMode">
+			<div class="col-xs-12 section section-heading">
+				<span class="col-xs-4">Combination Name</span>
+				<span class="col-xs-2">Doses</span>
+				<span class="col-xs-2">Price</span>
+				<span class="col-xs-2"></span>
+			</div> 
+			<div *ngFor="let combination of combinations" class="col-xs-12 section">
+				<span class="col-xs-4">{{ combination.name }}</span>
+				<span class="col-xs-2">{{ combination.totaldoses }}</span>
+				<span class="col-xs-2">{{ combination.totalprice | currency:'INR':true:'1.2-2'}}</span>
+				<span class="col-xs-2" *ngIf="!viewOnly">
+					<span class="col-xs-5 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="editCombimation(combination)">Edit</button>
+					</span>
+					<span class="col-xs-7 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="deleteCombination(combination)">Delete</button>
+					</span>
+				</span>
+				<span class="col-xs-2" *ngIf="viewOnly">
+					<button class="btn btn-primary btn-block" (click)="editCombimation(combination)">View</button>
+				</span>
+			</div> 
+			<span *ngIf="!viewOnly">
+				<button class="btn btn-primary btn-block" (click)="editCombimation(newMedicineCombinationIssued)">Add Combination</button>
+			</span>
+		</div>
+		<form [formGroup]="medicineCombinationForm" (ngSubmit)="saveMedication(medicineCombinationForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+  			<h1 class="heading-1">Add Combination</h1>
+  			<fieldset [disabled]="viewOnly">
+  				<div class="medicine-combination-form">
+			  		<div class="col-xs-6 no-horizontal-padding">
+			  			<gncc-input [labelText] = "'Consumption Mode'" [inputControl] = "medicineCombinationForm.controls['consumptionmode']" [inputType]="'text'" [labelWidth]="4" [fieldWidth]="8"></gncc-input>
+			  			<gncc-input [labelText] = "'Consumption Time'" [inputControl] = "medicineCombinationForm.controls['timeofmedication']" [inputType]="'text'" [labelWidth]="4" [fieldWidth]="8"></gncc-input>
+			  			<gncc-input [labelText] = "'Consumption State'" [inputControl] = "medicineCombinationForm.controls['stateformedication']" [inputType]="'text'" [labelWidth]="4" [fieldWidth]="8"></gncc-input>
+			  			<gncc-input [labelText] = "'Dietery Restrictions'" [inputControl] = "medicineCombinationForm.controls['dietaryrestrictions']" [inputType]="'textarea'" [labelWidth]="12" [fieldWidth]="12"></gncc-input>
+			  			<div class="col-xs-6 no-horizontal-padding">
+			  				<gncc-input [labelText] = "'Total Days'" [inputControl] = "medicineCombinationForm.controls['totaldays']" [inputType]="'number'" [labelWidth]="4" [fieldWidth]="6"></gncc-input>
+			  			</div>
+			  			<div class="col-xs-6 no-horizontal-padding">
+			  				<gncc-input [labelText] = "'Total Doses'" [inputControl] = "medicineCombinationForm.controls['totaldoses']" [inputType]="'number'" [labelWidth]="4" [fieldWidth]="8"></gncc-input>
+			  			</div>
+			  			<gncc-input [labelText] = "'Price Perdose'" [inputControl] = "medicineCombinationForm.controls['priceperdose']" [inputType]="'number'" [labelWidth]="4" [fieldWidth]="8"></gncc-input>
+			  			<gncc-input [labelText] = "'Discount'" [inputControl] = "medicineCombinationForm.controls['discount']" [inputType]="'number'" [labelWidth]="4" [fieldWidth]="8"></gncc-input>
+					</div>
+					<div formArrayName="medicines" class="col-xs-6 no-horizontal-padding">
+						<div *ngFor="let medicine of medicineCombinationForm.controls.medicines.controls; let i=index" class="col-xs-12 no-horizontal-padding">
+				            <div [formGroupName]="i" class="col-xs-11 no-horizontal-padding">
+				            	<div class="col-xs-8 no-horizontal-padding">
+				                	<gncc-input [labelText] = "'Medicine'" [inputControl] = "medicineCombinationForm.controls['medicines'].controls[i].controls['medicineid']" [inputType]="'select'" [optionList]="medicines" [optionValueField]="'id'" [labelWidth]="0" [fieldWidth]="11" [defaultHeading]="'Select Medicine'"></gncc-input>
+				                </div>
+				                <div class="col-xs-4 no-horizontal-padding">
+				                	<gncc-input [labelText] = "'mg/ml'" [inputControl] = "medicineCombinationForm.controls['medicines'].controls[i].controls['weightinmg']" [inputType]="'number'" [labelWidth]="4" [fieldWidth]="7"></gncc-input>
+				                </div>
+				            </div>
+				            <span class="col-xs-1 no-horizontal-padding" [hidden]="viewOnly">
+				            	<span class="btn btn-primary btn-block" (click)="removeMedicine(i)">X</span>
+				            </span>
+				        </div>
+				        <span class="col-xs-12 no-horizontal-padding" [hidden]="viewOnly">
+				       	 	<span class="btn btn-primary btn-block" (click)="addMedicine()">Add Medicine</span>
+				        </span>
+			        </div>
+			    </div>
+		    </fieldset>
+		    <h1 class="heading-1">TOTAL : {{((medicineCombinationForm.value.totaldoses * medicineCombinationForm.value.priceperdose)-medicineCombinationForm.value.discount)| currency:'INR':true:'1.2-2'}}</h1>
+		    <span class="col-xs-6 no-horizontal-padding" [hidden]="viewOnly">
+		  		<button class="btn btn-primary btn-block" type="submit">Save Combination</button>
+		  	</span>
+		  	<span class="col-xs-6 no-horizontal-padding" [hidden]="viewOnly">
+		  		<button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button>
+		  	</span>
+		  	<span class="col-xs-12 no-horizontal-padding" [hidden]="!viewOnly">
+		  		<button class="btn btn-primary btn-block" (click)="cancel()">Go Back</button>
+		  	</span>
 		</form>
   	</div>
+  	<h1 class="heading-1" *ngIf="!editMode && grandTotal>0">Grand Total : {{grandTotal| currency:'INR':true:'1.2-2'}}</h1>
+  	<button class="btn btn-primary btn-block" (click)="print()" *ngIf="!editMode && grandTotal>0">Print Bill</button>
+</div>
+<div *ngIf="!appointment || (appointment && appointment.id == 0)" class="col-xs-12 section">
+	<span >There is no active visits. Please create a visit to issue medicines.</span>
 </div>

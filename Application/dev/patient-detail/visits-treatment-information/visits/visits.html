@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="view=='visits'">
   	<div class="panel-body">
   		<h1 class="heading-1">Visits</h1>
   		<div class="alert alert-success" *ngIf="status === 'success' && !visitForm.dirty">
@@ -8,24 +8,31 @@
 		    <strong>{{errorMessage}}</strong>
 		</div>
 		<div class="col-xs-12" *ngIf="!editMode">
+			<button class="btn btn-primary btn-block" (click)="editVisit(newVisit)" *ngIf="visits && visits.length>0">Add Visit</button>
 			<div class="col-xs-12 section section-heading">
-				<span class="col-xs-3">Doctor</span>
+				<span class="col-xs-4">Doctor</span>
 				<span class="col-xs-2">Date</span>
 				<span class="col-xs-2">Time</span>
 				<span class="col-xs-2">Status</span>
-				<span class="col-xs-3"></span>
+				<span class="col-xs-2"></span>
 			</div> 
-			<div *ngFor="let visit of visits; let last = last" class="col-xs-12 section">
-				<span class="col-xs-3">{{ visit.doctorname }}</span>
+			<div *ngFor="let visit of visits; let first = first" class="col-xs-12 section">
+				<span class="col-xs-4">{{ visit.doctorname }}</span>
 				<span class="col-xs-2">{{ visit.dateofappointment }}</span>
 				<span class="col-xs-2">{{ visit.timeofappointment }}</span>
-				<span class="col-xs-2">{{ visit.iscancelled?'Cancelled':(visit.isactive?'Scheduled':'Done' )}}</span>
-				<span class="col-xs-3">
-					<span class="col-xs-5">
-						<button class="btn btn-primary btn-block" (click)="editVisit(visit)" *ngIf="last && visit.isactive">Edit</button>
+				<span class="col-xs-2" *ngIf="visit.isactive">
+					<button class="btn btn-primary btn-block" (click)="closeVisit(visit)">Close</button>
+				</span>
+				<span class="col-xs-2" *ngIf="!visit.isactive">{{ visit.iscancelled?'Cancelled':(visit.isactive?'Scheduled':'Done' )}}</span>
+				<span class="col-xs-2">
+					<span class="col-xs-5 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="editVisit(visit)" *ngIf="first && visit.isactive">Edit</button>
 					</span>
-					<span class="col-xs-7">
-						<button class="btn btn-primary btn-block" (click)="cancelVisit(visit)" *ngIf="last && visit.isactive">Cancel</button>
+					<span class="col-xs-7 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="cancelVisit(visit)" *ngIf="first && visit.isactive">Cancel</button>
+					</span>
+					<span class="col-xs-12 no-horizontal-padding">
+						<button class="btn btn-primary btn-block" (click)="viewMedication(visit)" *ngIf="!visit.isactive && !visit.iscancelled">View</button>
 					</span>
 				</span>
 			</div> 
@@ -38,7 +45,14 @@
 
 	  		<gncc-input [labelText] = "'Time Of Appointment'" [inputControl] = "visitForm.controls['timeofappointment']" [inputType]="'time'"></gncc-input>
 			
-		  	<button class="btn btn-primary btn-block" type="submit">Save Visit</button>
+			<span class="col-xs-6 no-horizontal-padding">
+		  		<button class="btn btn-primary btn-block" type="submit">Save Visit</button>
+		  	</span>
+		  	<span class="col-xs-6 no-horizontal-padding">
+		  		<button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button>
+		  	</span>
 		</form>
   	</div>
 </div>
+<pd-medications [medicines]="medicines" [patient]="patient" [appointment]="appointment" [viewOnly] = "true" *ngIf="appointment && view=='medications'"></pd-medications>
+<button class="btn btn-primary btn-block" (click)="cancel()" *ngIf="appointment && view=='medications'">View All Visits</button>

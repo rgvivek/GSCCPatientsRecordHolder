@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Appointment } from 'app/treatment/appointment';
@@ -9,6 +9,7 @@ import { Medicine } from 'app/medicine/medicine';
 import { Doctor } from 'app/treatment/doctor';
 import { Patient } from 'app/patient/patient';
 
+
 @Component({
     selector: 'pd-visits',
     templateUrl:"app/patient-detail/visits-treatment-information/visits/visits.html"
@@ -18,8 +19,11 @@ export class VisitsInformationComponent{
 	@Input() doctors:Array<Doctor> = new Array<Doctor>();
 	@Input() medicines:Array<Medicine> = new Array<Medicine>();
 	@Input() patient:Patient = new Patient();
+	@Output() onVisitsUpdated: EventEmitter<any> = new EventEmitter();
 	private visits:Array<Appointment> = new Array<Appointment>();
 	private fb: FormBuilder = new FormBuilder();
+	private view:string = "visits";
+	private appointment:Appointment = null;
 	
 	private newVisit:Appointment = new Appointment();
 	
@@ -33,7 +37,8 @@ export class VisitsInformationComponent{
 	getVisits(patientId:number):void{
 		this.treatmentService.getVisits(patientId).subscribe(
 	        visits => {
-	        	this.visits = visits
+	        	this.visits = visits;
+	        	this.onVisitsUpdated.emit([visits]);
 	        },
 	        error =>  this.errorMessage = <any>error);
 	};
@@ -42,6 +47,11 @@ export class VisitsInformationComponent{
 		if(this.patient && this.patient.id){
 			this.getVisits(this.patient.id);
 		}
+	}
+
+	viewMedication(visit:Appointment):void{
+		this.appointment = visit;
+		this.view = 'medications';
 	}
 
 	editVisit(visit:Appointment):void{
@@ -65,6 +75,15 @@ export class VisitsInformationComponent{
 		}, 'Visit cancelled successfully');
 	}
 
+	closeVisit(visit:Appointment):void{
+		this.editMode = false;
+		this.saveAppointment({
+			'id': visit.id,
+		    'iscancelled' : false,
+		    'isactive' : false
+		}, 'Visit closed successfully');
+	}
+
 	saveVisit(formData : any): void {
 		this.saveButtonClicked = true;
 		this.status = null;
@@ -83,6 +102,8 @@ export class VisitsInformationComponent{
 			  				this.status = 'success';
 			  				if(this.visitForm){
 			  					this.visitForm.markAsPristine();
+			  				}else{
+			  					this.visitForm = {dirty:true};
 			  				}
 			  				this.newVisit = new Appointment();
 			  				this.editMode = false;
@@ -105,5 +126,7 @@ export class VisitsInformationComponent{
 	}
 	cancel():void{
 		this.editMode = false;
+		this.appointment = null;
+		this.view = 'visits';
 	}
 }

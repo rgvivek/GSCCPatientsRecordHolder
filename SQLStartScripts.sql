@@ -131,6 +131,7 @@ CREATE TABLE `diagnosis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE `medicines` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
@@ -138,6 +139,7 @@ CREATE TABLE `medicines` (
   `description` text,
   `price` int(10) NOT NULL,
   `weightinmg` int(10) NOT NULL,
+  `dietaryrestriction` text,
   `totalstockspurchased` integer default 0,
   `totalstocksissued` integer default 0,
   `totalstocksavailable` integer default 0,
@@ -226,6 +228,7 @@ BEGIN
 	 update medicines set totalstockspurchased = totalstockspurchased + new.totalweightinmgs, totalstocksavailable=totalstocksavailable+new.totalweightinmgs where id = new.medicineid ;
 END$$
 
+
 DELIMITER $$
 
 CREATE TRIGGER `updateMCIOnIssueMedicine` 
@@ -234,20 +237,12 @@ FOR EACH ROW
 BEGIN
 	 update medicine_combinations_issued set name = (SELECT GROUP_CONCAT(CONCAT(m.name,'(', mi.weightinmg,')') SEPARATOR ', ')
 FROM medicines_issued mi inner join medicines m on m.id = mi.medicineid 
-where combinationid=0 group by mi.combinationid ) where id = new.combinationid ;
+where mi.combinationid=new.combinationid  group by mi.combinationid ) where id = new.combinationid ;
 END$$
 
 
-DELIMITER $$
 
-CREATE TRIGGER `updateMCIOnDeleteIssueMedicine` 
-AFTER DELETE ON `medicines_issued`
-FOR EACH ROW 
-BEGIN
-	 update medicine_combinations_issued set name = (SELECT GROUP_CONCAT(CONCAT(m.name,'(', mi.weightinmg,')') SEPARATOR ', ')
-FROM medicines_issued mi inner join medicines m on m.id = mi.medicineid 
-where combinationid=0 group by mi.combinationid ) where id = old.combinationid ;
-END$$
+
 
 INSERT INTO `gscc`.`investigation_category`
 (`code`,

@@ -17,4 +17,7 @@ export class GnccInputComponent {
 	@Input() disabled:string = '';
 	@Input() optionDisplayField: string = 'name';
 	@Input() optionValueField: string = 'code';
+	@Input() defaultHeading: string = 'Select';
+	@Input() labelWidth: number = 2;
+	@Input() fieldWidth: number = 10;
 }

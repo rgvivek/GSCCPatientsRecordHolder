@@ -1,6 +1,11 @@
 <div class="panel panel-default">
   	<div class="panel-body">
-  		<h1 class="heading-1">{{displayName}}</h1>
+  		<span class="only-for-printing">
+  			<span class="col-xs-9">Patient Name : {{printableDisplayName}}</span>
+  			<span class="col-xs-3">Date : {{todaysDate| date: 'dd/MM/yyyy' }}</span>
+  			<span class="col-xs-3">D.O.B: {{patientDOB| date: 'dd/MM/yyyy' }}</span>
+  		</span>
+  		<h1 class="only-for-display heading-1">{{displayName}}</h1>
   		<tabs class="full-width-tabs">
 			<tab tabTitle="Personal Details">
 				<pd-general-information [patient]="patient"></pd-general-information>

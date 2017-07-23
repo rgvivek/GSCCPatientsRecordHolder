@@ -219,6 +219,21 @@ module.exports = {
       appointments.saveDiagnosis(req.body, res);
     });
 
+    app.get('/medications/:patientid/', isLoggedIn, function(req, res, next) {
+      appointments.getAllMedications(req.params.patientid, res);
+    });
+
+    app.get('/medications/:patientId/:appointmentId', isLoggedIn, function(req, res, next) {
+      appointments.getAllMedicationsByAppointmentId(req.params.patientId, req.params.appointmentId, res);
+    });
+
+    app.post('/medications/', isLoggedIn, function(req, res, next) {
+      appointments.saveMedicineCombination(req.body, res);
+    });
+
+    app.delete('/medications/:id/', isLoggedIn, function(req, res, next) {
+      appointments.deleteMedicineCombination(req.params.id, res);
+    });
 
     function isLoggedIn(req, res, next) {
       var token = req.headers['x-access-token'];

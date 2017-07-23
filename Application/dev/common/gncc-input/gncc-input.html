@@ -1,9 +1,9 @@
 <div class="form-group row" [ngSwitch]="inputType">
   	<label class="col-xs-12 col-form-label" *ngSwitchDefault>
-    	<div class="col-xs-2 no-horizontal-padding">
+    	<div class="col-xs-{{labelWidth||2}} no-horizontal-padding">
         	{{labelText}}
     	</div>
-    	<div class="col-xs-10 no-horizontal-padding">
+    	<div class="col-xs-{{fieldWidth||10}} no-horizontal-padding">
         	<input class="form-control" type="{{inputType}}" [formControl]="inputControl" placeholder="{{placeholderText}}" disabled={{disabled}}>
         	<div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
         		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -20,10 +20,10 @@
     	</div>
   	</label>
     <label class="col-xs-12 col-form-label" *ngSwitchCase="'textarea'">
-      <div class="col-xs-2 no-horizontal-padding">
+      <div class="col-xs-{{labelWidth||2}} no-horizontal-padding">
           {{labelText}}
       </div>
-      <div class="col-xs-10 no-horizontal-padding">
+      <div class="col-xs-{{fieldWidth||10}} no-horizontal-padding">
           <textarea class="form-control" [formControl]="inputControl" disabled={{disabled}} [rows]="rows">
           </textarea>
           <div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
@@ -35,10 +35,10 @@
       </div>
     </label>
     <label class="col-xs-12 col-form-label" *ngSwitchCase="'date'">
-      <div class="col-xs-2 no-horizontal-padding">
+      <div class="col-xs-{{labelWidth||2}} no-horizontal-padding">
           {{labelText}}
       </div>
-      <div class="col-xs-10 no-horizontal-padding">
+      <div class="col-xs-{{fieldWidth||10}} no-horizontal-padding">
           <input class="form-control" type="date" [formControl]="inputControl" placeholder="{{placeholderText}}" min="{{minDate}}" max="{{maxDate}}" disabled={{disabled}}>
           <div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -52,10 +52,10 @@
   	</label>
 
     <label class="col-xs-12 col-form-label" *ngSwitchCase="'toggle'">
-      <div class="col-xs-2 no-horizontal-padding">
+      <div class="col-xs-{{labelWidth||2}} no-horizontal-padding">
           {{labelText}}
       </div>
-      <div class="col-xs-10 no-horizontal-padding">
+      <div class="col-xs-{{fieldWidth||10}} no-horizontal-padding">
         <div class="col-xs-12 no-horizontal-padding">
           <input name="{{groupName}}" type="radio" [value]="1"  [formControl]="inputControl">Yes 
           <input name="{{groupName}}" type="radio" [value]="0"  [formControl]="inputControl">No
@@ -70,12 +70,12 @@
     </label>
 
     <label class="col-xs-12 col-form-label" *ngSwitchCase="'select'">
-      <div class="col-xs-2 no-horizontal-padding">
+      <div class="col-xs-{{labelWidth||2}} no-horizontal-padding" *ngIf="labelWidth!=0">
           {{labelText}}
       </div>
-      <div class="col-xs-10 no-horizontal-padding">
+      <div class="col-xs-{{fieldWidth||10}} no-horizontal-padding">
         <select class="form-control" [formControl]="inputControl" disabled={{disabled}}>
-          <option value=null> Select </option>
+          <option value=null> {{defaultHeading||Select}} </option>
           <option *ngFor="let currentOption of optionList" [ngValue]="currentOption[optionValueField] || currentOption">{{currentOption[optionDisplayField] || currentOption}}</option>
         </select>
         <div class="error-block alert-danger"  [ngClass]="{'input-touched':inputControl.touched,'input-invalid':inputControl.invalid}">

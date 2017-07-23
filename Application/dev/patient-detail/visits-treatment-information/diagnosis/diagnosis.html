@@ -16,7 +16,7 @@
 			<div *ngFor="let diagnosis of diagnosisList" class="col-xs-12 section">
 				<span class="col-xs-4">{{ diagnosis.doctorname }}</span>
 				<span class="col-xs-6">{{ diagnosis.result }}</span>
-				<span class="col-xs-2">{{ diagnosis.createddate }}</span>
+				<span class="col-xs-2">{{ diagnosis.createddate| date: 'dd/MM/yyyy' }}</span>
 			</div> 
 			<button class="btn btn-primary btn-block" (click)="editDiagnosis(newDiagnosis)">Add Diagnosis</button>
 		</div>

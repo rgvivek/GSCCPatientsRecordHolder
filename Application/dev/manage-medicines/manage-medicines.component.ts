@@ -46,7 +46,8 @@ export class ManageMedicinesComponent implements OnInit{
 		    'name' : [medicine.name, Validators.required],
 		    'price' : [medicine.price, Validators.required],
 		    'weightinmg' : [medicine.weightinmg, Validators.required],
-		    'description' : [medicine.description]
+		    'description' : [medicine.description],
+		    'dietaryrestriction' : [medicine.dietaryrestriction]
 		});
 	}
 

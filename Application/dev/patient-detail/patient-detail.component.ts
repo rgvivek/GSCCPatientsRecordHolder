@@ -36,6 +36,9 @@ export class PatientDetailComponent implements OnInit{
                 patient => {
                 	this.patient = patient;
                 	this.displayName = patient.firstname + " " + patient.lastname[0] + " " + patient.sex[0]+"/"+this.calculateAge(new Date(patient.dateofbirth));
+                	this.printableDisplayName = patient.firstname + " " + patient.lastname;
+                	this.todaysDate = new Date();
+                	this.patientDOB = new Date(patient.dateofbirth);
                 },
                 error =>  this.errorMessage = <any>error);
 

@@ -26,6 +26,7 @@ import { PersonalHistoryComponent }  from './patient-detail/history-information/
 import { VisitsTreatmentInformationComponent }  from './patient-detail/visits-treatment-information/visits-treatment-information.component';
 import { VisitsInformationComponent }  from './patient-detail/visits-treatment-information/visits/visits.component';
 import { DiagnosisInformationComponent }  from './patient-detail/visits-treatment-information/diagnosis/diagnosis.component';
+import { MedicationsInformationComponent }  from './patient-detail/visits-treatment-information/medications/medications.component';
 import { HistoryOfIllnessComponent }  from './patient-detail/history-information/history-of-illness/history-of-illness.component';
 import { MedicalHistoryComponent }  from './patient-detail/history-information/medical-history/medical-history.component';
 import { CurrentMedicationsComponent }  from './patient-detail/history-information/current-medications/current-medications.component';
@@ -72,6 +73,7 @@ import { TreatmentService } from './treatment/treatment.service';
     VisitsTreatmentInformationComponent,
     VisitsInformationComponent,
     DiagnosisInformationComponent,
+    MedicationsInformationComponent,
     HistoryOfIllnessComponent,
     MedicalHistoryComponent,
     CurrentMedicationsComponent,

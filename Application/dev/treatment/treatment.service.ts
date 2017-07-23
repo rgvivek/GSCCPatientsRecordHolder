@@ -59,6 +59,13 @@ export class TreatmentService {
                     .catch(this.handleError);
 	}
 
+	getMedicationsByAppointmentId(patientId:number, appointmentId:number) : Observable<MedicineCombinationIssued[]>{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		return this.http.get(`${this.medicationUrl}/${patientId}/${appointmentId}`, this.header)
+                    .map(this.extractData.bind(this))
+                    .catch(this.handleError);
+	}
+
 	saveDoctor(doctor : Doctor) : void{
 		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
 		let res = this.http.post(this.doctorsUrl, doctor, this.header).map(this.extractData.bind(this))
@@ -84,6 +91,14 @@ export class TreatmentService {
 		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
 		let res = this.http.post(this.medicationUrl, medicineCombinationIssued, this.header).map(this.extractData.bind(this))
                     .catch(this.handleError);
+		return res;
+	}
+
+	deleteMedication(medicineCombinationId : number) : void{
+		this.header.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE";
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		let res = this.http.delete(`${this.medicationUrl}/${medicineCombinationId}`, this.header)
+		.map(this.extractData.bind(this)).catch(this.handleError);
 		return res;
 	}
 
