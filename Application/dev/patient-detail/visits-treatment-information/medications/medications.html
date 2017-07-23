@@ -8,22 +8,22 @@
 		</div>
 		<div class="col-xs-12 printable-medication" *ngIf="!editMode">
 			<div class="col-xs-12 section section-heading">
-				<span class="col-xs-4">Combination Name</span>
+				<span class="col-xs-6">Combination Name</span>
 				<span class="col-xs-2">Doses</span>
 				<span class="col-xs-2">Price</span>
 				<span class="col-xs-2"></span>
 			</div> 
 			<div *ngFor="let combination of combinations" class="col-xs-12 section">
-				<span class="col-xs-4">{{ combination.name }}</span>
+				<span class="col-xs-6">{{ combination.name }}</span>
 				<span class="col-xs-2">{{ combination.totaldoses }}</span>
 				<span class="col-xs-2">{{ combination.totalprice | currency:'INR':true:'1.2-2'}}</span>
 				<span class="col-xs-2" *ngIf="!viewOnly">
-					<span class="col-xs-5 no-horizontal-padding">
+					<span class="col-xs-12 no-horizontal-padding">
 						<button class="btn btn-primary btn-block" (click)="editCombimation(combination)">Edit</button>
 					</span>
-					<span class="col-xs-7 no-horizontal-padding">
+					<!-- <span class="col-xs-7 no-horizontal-padding">
 						<button class="btn btn-primary btn-block" (click)="deleteCombination(combination)">Delete</button>
-					</span>
+					</span> -->
 				</span>
 				<span class="col-xs-2" *ngIf="viewOnly">
 					<button class="btn btn-primary btn-block" (click)="editCombimation(combination)">View</button>

@@ -5,6 +5,7 @@ import { User } from 'app/user/user';
 import { Appointment } from 'app/treatment/appointment';
 import { Doctor } from 'app/treatment/doctor';
 import { Diagnosis } from 'app/treatment/diagnosis';
+import { Prescription } from 'app/treatment/prescription';
 import { MedicineCombinationIssued } from 'app/treatment/medicine-combination-issued';
 import { MedicineIssued } from 'app/treatment/medicine-issued';
 import { Observable } from 'rxjs/Observable';
@@ -26,6 +27,8 @@ export class TreatmentService {
     private medicationUrl = 'http://localhost:8000/medications'; 
     private doctorsUrl = 'http://localhost:8000/doctors'; 
     private diagnosisUrl = 'http://localhost:8000/diagnosis'; 
+    private prescriptionUrl = 'http://localhost:8000/prescription'; 
+    
     private header = {headers:{}};
     private isLoginSuccess : Boolen = false;
     loginSuccess:BehaviorSubject = new BehaviorSubject(null);
@@ -48,6 +51,14 @@ export class TreatmentService {
 	getDiagnosis(patientId:number) : Observable<Diagnosis[]>{
 		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
 		return this.http.get(`${this.diagnosisUrl}/${patientId}`, this.header)
+                    .map(this.extractData.bind(this))
+                    .catch(this.handleError);
+	}
+
+
+	getPrescription(patientId:number) : Observable<Prescription[]>{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		return this.http.get(`${this.prescriptionUrl}/${patientId}`, this.header)
                     .map(this.extractData.bind(this))
                     .catch(this.handleError);
 	}
@@ -83,6 +94,13 @@ export class TreatmentService {
 	saveDiagnosis(diagnosis : Diagnosis) : void{
 		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
 		let res = this.http.post(this.diagnosisUrl, diagnosis, this.header).map(this.extractData.bind(this))
+                    .catch(this.handleError);
+		return res;
+	}
+
+	savePrescription(diagnosis : Prescription) : void{
+		this.header.headers['x-access-token'] = this.cookieService.get('gscc-token');
+		let res = this.http.post(this.prescriptionUrl, diagnosis, this.header).map(this.extractData.bind(this))
                     .catch(this.handleError);
 		return res;
 	}

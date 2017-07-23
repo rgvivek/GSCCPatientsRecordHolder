@@ -1,0 +1,44 @@
+<div class="panel panel-default print-full-width" *ngIf="appointment && appointment.id != 0">
+  	<div class="panel-body">
+  		<h1 class="heading-1">Prescription</h1>
+  		<div class="alert alert-success only-for-display" *ngIf="status === 'success' && !prescriptionForm.dirty">
+		    <strong>Details saved successfully!</strong>
+		</div>
+		<div class="alert alert-danger only-for-display" *ngIf="status === 'error'">
+		    <strong>{{errorMessage}}</strong>
+		</div>
+		<div class="col-xs-12" *ngIf="!editMode">
+			<div class="col-xs-12 section section-heading only-for-display">
+				<span class="col-xs-4">Doctor</span>
+				<span class="col-xs-5">Comments</span>
+				<span class="col-xs-2">Date</span>
+				<span class="col-xs-1"></span>
+			</div> 
+			<div *ngFor="let prescription of prescriptionList" class="col-xs-12 section" [ngClass]="{'only-for-display' : !prescription.print}">
+				<span class="col-xs-4 only-for-display">{{ prescription.doctorname }}</span>
+				<span class="col-xs-5 print-full-width">{{ prescription.comments }}</span>
+				<span class="col-xs-2 only-for-display">{{ prescription.createddate| date: 'dd/MM/yyyy' }}</span>
+				<span class="col-xs-1 only-for-display">
+					<button class="btn btn-primary btn-block" (click)="viewPrescription(prescription)">Print</button>
+				</span>
+			</div> 
+			<button class="btn btn-primary btn-block" (click)="editPrescription(newPrescription)">Add Prescription</button>
+		</div>
+  		<form [formGroup]="prescriptionForm" (ngSubmit)="savePrescription(prescriptionForm.value)" novalidate="novalidate" [ngClass]="{submitted:saveButtonClicked}" *ngIf="editMode">
+	  		<gncc-input [labelText] = "'Doctor'" [inputControl] = "prescriptionForm.controls['doctorid']" [inputType]="'select'" [optionList]="doctors" [optionValueField]="'id'"></gncc-input>
+
+	  		<gncc-input [labelText] = "'Comments'" [inputControl] = "prescriptionForm.controls['comments']" [inputType]="'textarea'"></gncc-input>
+	  		<span class="col-xs-12">
+				<span class="col-xs-6 no-horizontal-padding">
+					<button class="btn btn-primary btn-block" type="submit">Save Prescription</button>
+				</span>
+				<span class="col-xs-6 no-horizontal-padding">
+					<button class="btn btn-primary btn-block" (click)="cancel()">Cancel</button>
+				</span>
+			</span>
+		</form>
+  	</div>
+</div>
+<div *ngIf="!appointment || (appointment && appointment.id == 0)" class="col-xs-12 section">
+	<span >There is no active visits. Please create a visit to issue prescription.</span>
+</div>

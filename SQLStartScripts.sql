@@ -132,6 +132,26 @@ CREATE TABLE `diagnosis` (
 
 
 
+
+
+
+CREATE TABLE `prescription` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `patientid` int(11) DEFAULT NULL,
+  `doctorid` int(11) DEFAULT NULL,
+  `appointmentid` int(11) DEFAULT NULL,
+  `comments` text,
+  `createddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_prescription_patients` FOREIGN KEY (`patientid`) REFERENCES `patients` (`id`),
+  CONSTRAINT `fk_prescription_doctors` FOREIGN KEY (`doctorid`) REFERENCES `doctors` (`id`),
+  CONSTRAINT `fk_prescription_appointment` FOREIGN KEY (`doctorid`) REFERENCES `doctors` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
 CREATE TABLE `medicines` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,

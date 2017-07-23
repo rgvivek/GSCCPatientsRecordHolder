@@ -28,6 +28,15 @@ function Appointments() {
     });
   };
 
+  this.getAllPrescription = function(patientId, res) {
+    connection.acquire(function(err, con) {
+      con.query('select a.*, d.name as doctorname from prescription a inner join doctors d on a.doctorid = d.id where patientid = ? order by id',patientId, function(err, result) {
+        con.release();
+        res.send(result);
+      });
+    });
+  };
+
   this.getAllAppointments = function(startDate, endDate, res) {
     connection.acquire(function(err, con) {
       con.query('select * from appointments where dateofappointment between ? and ?',[startDate, endDate], function(err, result) {
@@ -172,6 +181,22 @@ function Appointments() {
           res.send({status: 1, message: 'diagnosis creation failed'});
         } else {
           res.send({status: 2, message: 'diagnosis created successfully', diagnosisId : result.insertId});
+        }
+      });
+    });
+  };
+
+  this.savePrescription = function(prescription, res) {
+    connection.acquire(function(err, con) {
+      console.log("Executing :" + JSON.stringify(prescription));
+      con.query('insert into prescription set ?', prescription, function(err, result) {
+        con.release();
+        console.log("Executing done:" + JSON.stringify(prescription));
+        if (err) {
+          console.log("Error :" + JSON.stringify(err));
+          res.send({status: 1, message: 'prescription creation failed'});
+        } else {
+          res.send({status: 2, message: 'prescription created successfully', prescriptionId : result.insertId});
         }
       });
     });

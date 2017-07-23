@@ -219,6 +219,14 @@ module.exports = {
       appointments.saveDiagnosis(req.body, res);
     });
 
+    app.get('/prescription/:patientid/', isLoggedIn, function(req, res, next) {
+      appointments.getAllPrescription(req.params.patientid, res);
+    });
+
+    app.post('/prescription/', isLoggedIn, function(req, res, next) {
+      appointments.savePrescription(req.body, res);
+    });
+
     app.get('/medications/:patientid/', isLoggedIn, function(req, res, next) {
       appointments.getAllMedications(req.params.patientid, res);
     });
