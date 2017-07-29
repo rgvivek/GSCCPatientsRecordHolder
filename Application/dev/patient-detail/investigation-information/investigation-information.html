@@ -22,7 +22,7 @@
 		<div *ngFor="let testReport of clinicalTestReports" class="col-xs-12 section">
 			<span class="col-xs-2">{{ testReport.testname }}</span>
 			<span class="col-xs-3">{{ testReport.result }}</span>
-			<span class="col-xs-5">{{ testReport.conducteddate }}</span>
+			<span class="col-xs-5">{{ testReport.conducteddate | date: 'dd/MM/yyyy' }}</span>
 			<span class="col-xs-2">
 				<button class="btn btn-primary btn-block" (click)="viewTest(testReport.testid)">View All</button>
 			</span>
@@ -40,7 +40,7 @@
 			</span>
 		</div> 
 		<div *ngFor="let testReport of aggregatedTests[currentTestId];let last = last" class="col-xs-12 section">
-			<span class="col-xs-3">{{ testReport.conducteddate }}</span>
+			<span class="col-xs-3">{{ testReport.conducteddate | date: 'dd/MM/yyyy' }}</span>
 			<span class="col-xs-7">{{ testReport.result }}</span>
 			<span class="col-xs-2">
 				<button class="btn btn-primary btn-block" (click)="editTestReport(testReport)" *ngIf="last">Edit</button>

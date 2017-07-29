@@ -18,7 +18,7 @@
 			</div> 
 			<div *ngFor="let visit of visits; let first = first" class="col-xs-12 section">
 				<span class="col-xs-4">{{ visit.doctorname }}</span>
-				<span class="col-xs-2">{{ visit.dateofappointment }}</span>
+				<span class="col-xs-2">{{ visit.dateofappointment | date: 'dd/MM/yyyy'}}</span>
 				<span class="col-xs-2">{{ visit.timeofappointment }}</span>
 				<span class="col-xs-2" *ngIf="visit.isactive">
 					<button class="btn btn-primary btn-block" (click)="closeVisit(visit)">Close</button>

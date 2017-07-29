@@ -10,7 +10,6 @@ import { PatientService } from 'app/patient/patient.service';
 export class PatientsComponent implements OnInit{
 	constructor(private patientService: PatientService, private router: Router) {
 		this.columnDefs = [
-	        { headerName: "ID", field: "id", sortingOrder: ["asc", "desc"], editable: false, width: 100 },
 	        { headerName: "First Name", field: "firstname", sortingOrder: ["asc", "desc"], editable: false, hide: false },
 	        { headerName: "Last Name", field: "lastname", sortingOrder: ["asc", "desc"], editable: false, hide: false },
 	        { headerName: "Sex", field: "sex", sortingOrder: ["asc", "desc"], editable: false, hide: false },

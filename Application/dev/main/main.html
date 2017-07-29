@@ -1,10 +1,16 @@
 <div class="panel panel-default">
   <div class="panel-body">
-  	<button class="btn btn-primary btn-block" (click)="createUser()" *ngIf="isAdminView">Create User</button>
-  	<button class="btn btn-primary btn-block" (click)="manageTests()" *ngIf="isAdminView">Manage Test  Categories & Tests</button>
-  	<button class="btn btn-primary btn-block" (click)="manageMedicines()" *ngIf="isAdminView">Manage Medicines</button>
-  	<button class="btn btn-primary btn-block" (click)="manageDoctors()" *ngIf="isAdminView">Manage Doctors</button>
-  	<button class="btn btn-primary btn-block" (click)="goToPatients()">View Patients</button>
-  	<button class="btn btn-primary btn-block" (click)="addPatient()">Add Patients</button>
+  	<div class="flex-box" *ngIf="isAdminView">
+	  	<div class="btn-icon-link create-user" (click)="createUser()">Create User</div>
+	  	<div class="btn-icon-link tests" (click)="manageTests()">Manage Test  Categories & Tests</div>
+  	</div>
+  	<div class="flex-box" *ngIf="isAdminView">
+	  	<div class="btn-icon-link medicines" (click)="manageMedicines()">Manage Medicines</div>
+	  	<div class="btn-icon-link doctors" (click)="manageDoctors()">Manage Doctors</div>
+  	</div>
+  	<div class="flex-box">
+	  	<div class="btn-icon-link view-patients" (click)="goToPatients()">View Patients</div>
+	  	<div class="btn-icon-link add-patients" (click)="addPatient()">Add Patients</div>
+  	</div>
   </div>
 </div>
